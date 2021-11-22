@@ -10,12 +10,11 @@ namespace doanasp.Models
 {
     public class ChiTietHoaDon
     {
+            public int id { get; set; }
             //mã hóa đơn INT
-            [Key]
             [DisplayName("MÃ HÓA ĐƠN")]
             public HoaDon mahoadon { get; set; }
             //mã khách hàng INT
-            [Key]
             [DisplayName("MÃ SẢN PHẨM")]
             public SanPham masanpham { get; set; }
             //địa chỉ string
@@ -23,7 +22,7 @@ namespace doanasp.Models
             public String diachi { get; set; }
             //ghi chú string
             [DisplayName("GHI CHÚ")]
-            public String? ghichu { get; set; }
+            public String ghichu { get; set; }
             //ngày lập hóa đơn date time
             [DisplayName("NGÀY LẬP")]
             public DateTime ngaylap { get; set; }

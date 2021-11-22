@@ -10,6 +10,15 @@ namespace doanasp.Data
     {
         public ShopContext(DbContextOptions<ShopContext> options) : base(options)
         { }
-        //public DbSet<Account> Accounts { get; set; }
+        public DbSet<account> Accounts { get; set; }
+        public DbSet<SanPham> sanPhams { get; set; }
+        public DbSet<HoaDon> hoaDons { get; set; }
+        public DbSet<LoaiSanPham> loaiSanPhams { get; set; }
+        public DbSet<ChiTietHoaDon> chiTietHoaDons { get; set; }
+        public DbSet<GioHang> gioHangs { get; set; }
+        
+        
+       
+
     }
 }

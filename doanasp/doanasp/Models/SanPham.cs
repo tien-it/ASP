@@ -51,5 +51,7 @@ namespace doanasp.Models
         //trang thái sản phẩm 0 , hết hàng , 1 còn hàng. -1 tạm khóa
         [DisplayName("TRẠNG THÁI")]
         public int trangthai { get; set; }
+        public List<GioHang> gioHangs { get; set; }
+        public List<ChiTietHoaDon> chiTietHoaDons { get; set; }
     }
 }

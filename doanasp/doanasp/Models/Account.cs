@@ -30,5 +30,7 @@ namespace doanasp.Models
         public String phuongthucdangnhap { get; set; }
         [DisplayName("Loại")]
         public int trangthai { get; set; }
+        public List<GioHang> gioHangs  { get; set; }
+        public List<HoaDon> hoaDons { get; set; }
     }
 }

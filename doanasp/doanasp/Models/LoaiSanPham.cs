@@ -23,5 +23,6 @@ namespace doanasp.Models
         //trang thái sản phẩm 0 loại sản phẩm k có sản phẩm. 1 là loại sản phẩm có ít nhất 1 sản phẩm
         [DisplayName("TRẠNG THÁI")]
         public int trangthai { get; set; }
+        public List<SanPham> sanPhams { get; set; }
     }
 }

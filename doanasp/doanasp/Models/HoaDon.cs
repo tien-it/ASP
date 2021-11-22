@@ -22,7 +22,7 @@ namespace doanasp.Models
         public String diachi { get; set; }
         //ghi chú string
         [DisplayName("GHI CHÚ")]
-        public String? ghichu { get; set; }
+        public String ghichu { get; set; }
         //ngày lập hóa đơn date time
         [DisplayName("NGÀY LẬP")]
         public DateTime ngaylap { get; set; }
@@ -35,5 +35,6 @@ namespace doanasp.Models
         //trang thái hóa đơn : 0 đang xử lý , 1 đã tiếp nhận, 2 đang giao, 4 là giao hàng thành công, -1 bị hủy 
         [DisplayName("TRẠNG THÁI")]
         public int trangthai { get; set; }
+        public List<ChiTietHoaDon> chiTietHoaDons { get; set; }
     }
 }

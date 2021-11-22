@@ -12,13 +12,13 @@ namespace doanasp.Models
 {
     public class GioHang
     {
-
+        public int id{ get; set; }
         //mã  sản phẩm
-        [Key]
+
         [DisplayName("MÃ SẢN PHẨM")]
         public SanPham masanpham { get; set; }
         //mã khách hàng 
-        [Key]
+        
         [DisplayName("MÃ KHÁCH HÀNG")]
         public account makhachhang { get; set; }
         //số lượng
@@ -27,5 +27,6 @@ namespace doanasp.Models
         //trạng thái  1 là còn sản phẩm . -1 là hết sản phẩm 
         [DisplayName("TRẠNG THÁI")]
         public int trangthai { get; set; }
+        
     }
 }
