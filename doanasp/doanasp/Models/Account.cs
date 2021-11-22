@@ -10,24 +10,25 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace doanasp.Models
 {
     public class account
-    {
-        public int id { get; set; }
-
+    {  
+        [Key]
+        [DisplayName("MÃ KHÁCH HÀNG")]
+        public int makhachhang { get; set; }
         [DisplayName("Tên đăng nhập")]
-        public string username { get; set; }
+        public string tendangnhap { get; set; }
         [DisplayName("Mật Khẩu")]
-        public String password { get; set; }
+        public String matkhau { get; set; }
         [DisplayName("Email")]
         public String email { get; set; }
         [DisplayName("Họ và Tên")]
-        public String fullname { get; set; }
+        public String hovaten { get; set; }
         [DisplayName("Địa Chỉ")]
-        public String permanent_address { get; set; }
+        public String diachi { get; set; }
         [DisplayName("SĐT")]
-        public String phonenumber { get; set; }
-        [DisplayName("Ảnh")]
-        public String avatar { get; set; }
-        [DisplayName("Admininstrator")]
-        public int type_user { get; set; }
+        public String sodienthoai { get; set; }
+        [DisplayName("Phương Thức Đăng nhập")]
+        public String phuongthucdangnhap { get; set; }
+        [DisplayName("Loại")]
+        public int trangthai { get; set; }
     }
 }
