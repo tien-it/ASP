@@ -163,11 +163,6 @@ E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\GioHangs\Delet
 E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\GioHangs\Details.cshtml.g.cs
 E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\GioHangs\Edit.cshtml.g.cs
 E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\GioHangs\Index.cshtml.g.cs
-E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\HoaDons\Create.cshtml.g.cs
-E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\HoaDons\Delete.cshtml.g.cs
-E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\HoaDons\Details.cshtml.g.cs
-E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\HoaDons\Edit.cshtml.g.cs
-E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\HoaDons\Index.cshtml.g.cs
 E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\LoaiSanPhams\Create.cshtml.g.cs
 E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\LoaiSanPhams\Delete.cshtml.g.cs
 E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\LoaiSanPhams\Details.cshtml.g.cs
@@ -178,4 +173,9 @@ E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\SanPhams\Delet
 E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\SanPhams\Details.cshtml.g.cs
 E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\SanPhams\Edit.cshtml.g.cs
 E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\SanPhams\Index.cshtml.g.cs
-E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\HoaDons\hoadongroup.cshtml.g.cs
+E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\HoaDons\Create.cshtml.g.cs
+E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\HoaDons\Delete.cshtml.g.cs
+E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\HoaDons\Details.cshtml.g.cs
+E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\HoaDons\Edit.cshtml.g.cs
+E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\HoaDons\Index.cshtml.g.cs
+E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutAdminIndex.cshtml.g.cs

@@ -29,8 +29,8 @@ namespace doanasp.Controllers
             //var lstInvoice = _context.hoaDons.GroupBy(inv => inv.makhachhang);
 
             var lstInvoice = _context.hoaDons
-                            .OrderByDescending(inv => inv.makhachhang)
-                            .ThenBy(inv => inv.tongtien);
+                            .OrderByDescending(inv => inv.makhachhang);
+                            //.ThenBy(inv => inv.tongtien);
 
 
             return View(await lstInvoice.ToListAsync());
