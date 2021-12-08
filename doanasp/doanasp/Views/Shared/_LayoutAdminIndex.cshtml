@@ -4,7 +4,7 @@
     <title>@ViewData["Title"] - doanasp</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="~/assets/css/main.css" />
 </head>
 <body class="homepage is-preload">
     <div id="page-wrapper">
@@ -14,8 +14,7 @@
 
             <!-- Logo -->
             <div id="logo">
-                <h1><a href="index.html">Escape Velocity</a></h1>
-                <p>A free responsive site template by HTML5 UP</p>
+                <h1>Nội Thất Nhà Tui</h1>
             </div>
 
             <!-- Nav -->
@@ -24,6 +23,8 @@
                     <li class="current"><a asp-controller="Home" asp-action="Index">Trang Chủ</a></li>
                     <li><a asp-controller="HoaDons" asp-action="Index">Hóa Đơn</a></li>
                     <li><a asp-controller="accounts" asp-action="Index">Tài Khoản</a></li>
+                    <li><a asp-controller="sanphams" asp-action="Index">Sản Phẩm</a></li>
+                    <li><a asp-controller="Loaisanphams" asp-action="Index">Danh Mục Sản Phẩm</a></li>
                     <li><a asp-controller="ChiTietHoaDons" asp-action="Index">Chi Tiết Đơn Hàng</a></li>
                     <li><a asp-controller="GioHangs" asp-action="Index">Giỏ Hàng</a></li>
                 </ul>
@@ -33,7 +34,7 @@
 
         <!-- Main -->
         <section id="main" class="wrapper style2">
-            @RenderBody()
+            <div class="container" >@RenderBody() </div>
         </section>
         <!-- Footer -->
         <section id="footer" class="wrapper">
@@ -74,9 +75,9 @@
                                     <section>
                                         <h3 class="icon solid fa-home">Mailing Address</h3>
                                         <p>
-                                            Untitled Corp<br />
-                                            1234 Somewhere Rd<br />
-                                            Nashville, TN 00000
+                                           Cao Đẳng Kỹ Thuật Cao Thắng<br />
+                                            67 Huỳnh Thúc Kháng<br />
+                                            Đa Kao, Quận 1
                                         </p>
                                     </section>
                                 </div>
@@ -84,9 +85,9 @@
                                     <section>
                                         <h3 class="icon solid fa-comment">Social</h3>
                                         <p>
-                                            <a href="#">-corp</a><br />
-                                            <a href="#">linkedin.com/untitled</a><br />
-                                            <a href="#">facebook.com/untitled</a>
+                                            <a href="#">-corp</a>NHÀ TUI.CoLtd<br />
+                                            <a href="#">linkedin.com/tiendeptrai</a><br />
+                                            <a href="#">facebook.com/vantien1308</a>
                                         </p>
                                     </section>
                                 </div>
@@ -94,7 +95,7 @@
                                     <section>
                                         <h3 class="icon solid fa-envelope">Email</h3>
                                         <p>
-                                            <a href="#">info@untitled.tld</a>
+                                            <a href="#">caothang.edu.vn</a>
                                         </p>
                                     </section>
                                 </div>
@@ -102,7 +103,7 @@
                                     <section>
                                         <h3 class="icon solid fa-phone">Phone</h3>
                                         <p>
-                                            (000) 555-0000
+                                            (84) 0909898999
                                         </p>
                                     </section>
                                 </div>
@@ -113,8 +114,7 @@
                 </div>
                 <div id="copyright">
                     <ul>
-                        <li>&copy; Untitled.</li>
-                        <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                        <li>&copy; Nhà Tui Đẹp</li>
                     </ul>
                 </div>
             </div>
@@ -123,12 +123,17 @@
     </div>
 
     <!-- Scripts -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/jquery.dropotron.min.js"></script>
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/util.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/jquery.dropotron.min.js"></script>
+    <script src="~/assets/js/browser.min.js"></script>
+    <script src="~/assets/js/breakpoints.min.js"></script>
+    <script src="~/assets/js/util.js"></script>
+    <script src="~/assets/js/main.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
 
 </body>
 </html>
