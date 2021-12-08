@@ -1,0 +1,79 @@
+﻿@model IEnumerable<doanasp.Models.HoaDon>
+
+@{
+    ViewData["Title"] = "Hóa Đơn Theo Khách Hàng";
+    var invoiceGroups = Model.GroupBy(i => i.makhachhang).OrderBy(i => i.Key);
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.makhachhang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.diachi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ghichu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ngaylap)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.capnhat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tongtien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.trangthai)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var group in  invoiceGroups)
+        {
+            @foreach (var item in group)
+            {
+        <tr>
+            @if (item == group.First())
+            {
+                <td rowspan="@group.Count()" class="font-weight-bold">
+                    @Html.DisplayFor(modelItem => group.Key) (@group.Count())
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.diachi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ghichu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ngaylap)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.capnhat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tongtien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.trangthai)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.mahoadon">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.mahoadon">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.mahoadon">Delete</a>
+            </td>
+        </tr>
+            }
+        }
+    </tbody>
+</table>

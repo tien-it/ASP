@@ -178,3 +178,4 @@ E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\SanPhams\Delet
 E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\SanPhams\Details.cshtml.g.cs
 E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\SanPhams\Edit.cshtml.g.cs
 E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\SanPhams\Index.cshtml.g.cs
+E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\HoaDons\hoadongroup.cshtml.g.cs

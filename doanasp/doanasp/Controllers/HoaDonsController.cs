@@ -22,7 +22,18 @@ namespace doanasp.Controllers
         // GET: HoaDons
         public async Task<IActionResult> Index()
         {
-            return View(await _context.hoaDons.ToListAsync());
+            //var lstInvoice = _context.hoaDons
+            //                .Where(inv => inv.tongtien >= 50000 && inv.tongtien < 200000)
+            //                .OrderByDescending(inv => inv.ngaylap).ToListAsync();
+
+            //var lstInvoice = _context.hoaDons.GroupBy(inv => inv.makhachhang);
+
+            var lstInvoice = _context.hoaDons
+                            .OrderByDescending(inv => inv.makhachhang)
+                            .ThenBy(inv => inv.tongtien);
+
+
+            return View(await lstInvoice.ToListAsync());
         }
 
         // GET: HoaDons/Details/5

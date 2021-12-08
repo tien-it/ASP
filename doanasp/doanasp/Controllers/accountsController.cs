@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using doanasp.Data;
 using doanasp.Models;
-
+using System.Collections.Generic;
 namespace doanasp.Controllers
 {
     public class accountsController : Controller
@@ -22,7 +22,11 @@ namespace doanasp.Controllers
         // GET: accounts
         public async Task<IActionResult> Index()
         {
+            //var accountName = from acc in _context.Accounts
+            //                   where acc.trangthai == 2
+            //                   select acc ;
             return View(await _context.Accounts.ToListAsync());
+            //return View(await accountName.ToListAsync());
         }
 
         // GET: accounts/Details/5
