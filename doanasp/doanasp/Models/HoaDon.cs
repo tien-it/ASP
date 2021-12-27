@@ -10,26 +10,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace doanasp.Models
 {
     public class HoaDon
-    {   //mã hóa đơn INT
+    {
         [Key]
         [DisplayName("MÃ HÓA ĐƠN")]
-        public int mahoadon { get; set; }
-        //mã khách hàng INT
+        public int MAHOADON { get; set; }
         [DisplayName("MÃ KHÁCH HÀNG")]
-        public int makhachhang { get; set; }
-        //địa chỉ string
+        public int MAKHACHHANG { get; set; }
+        [DisplayName("SỐ ĐIỆN THOẠI")]
+        public String SDT { get; set; }
         [DisplayName("ĐỊA CHỈ")]
-        public String diachi { get; set; }
-        //ghi chú string
+        public String DIACHI { get; set; }
         [DisplayName("GHI CHÚ")]
-        public String ghichu { get; set; }
-        //ngày lập hóa đơn date time
+        public String GHICHU { get; set; }
         [DisplayName("NGÀY LẬP")]
-        public DateTime ngaylap { get; set; }
-        //ngày cập nhật trạng thái hóa đơn date time
+        public DateTime NGAYLAP { get; set; }
         [DisplayName("CẬP NHẬT")]
-        public DateTime capnhat { get; set; }
-        //tổng tiền của hóa đơn
+        public DateTime NGAYGIAO { get; set; }
         [DisplayName("TỔNG TIỀN")]
         public int tongtien { get; set; }
         //trang thái hóa đơn : 0 đang xử lý , 1 đã tiếp nhận, 2 đang giao, 4 là giao hàng thành công, -1 bị hủy 
