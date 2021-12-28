@@ -16,17 +16,21 @@ namespace doanasp.Models
         //mã  sản phẩm
 
         [DisplayName("MÃ SẢN PHẨM")]
-        public SanPham masanpham { get; set; }
+        public SanPham MACHITIETSANPHAM { get; set; }
         //mã khách hàng 
         
         [DisplayName("MÃ KHÁCH HÀNG")]
-        public account makhachhang { get; set; }
+        public account MAKHACHHANG { get; set; }
         //số lượng
         [DisplayName("SỐ LƯỢNG")]
-        public String soluong { get; set; }
+<<<<<<< Updated upstream
+        public int SOLUONG { get; set; }
+=======
+        public int soluong { get; set; }
+>>>>>>> Stashed changes
         //trạng thái  1 là còn sản phẩm . -1 là hết sản phẩm 
         [DisplayName("TRẠNG THÁI")]
-        public int trangthai { get; set; }
+        public int TRANGTHAI { get; set; }
         
     }
 }

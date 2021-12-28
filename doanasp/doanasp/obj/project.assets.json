@@ -8474,25 +8474,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\vanti\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\toanl\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Github\\ASP\\doanasp\\doanasp\\doanasp.csproj",
+      "projectUniqueName": "C:\\Users\\toanl\\Documents\\GitHub\\ASP\\doanasp\\doanasp\\doanasp.csproj",
       "projectName": "doanasp",
-      "projectPath": "E:\\Github\\ASP\\doanasp\\doanasp\\doanasp.csproj",
-      "packagesPath": "C:\\Users\\vanti\\.nuget\\packages\\",
-      "outputPath": "E:\\Github\\ASP\\doanasp\\doanasp\\obj\\",
+      "projectPath": "C:\\Users\\toanl\\Documents\\GitHub\\ASP\\doanasp\\doanasp\\doanasp.csproj",
+      "packagesPath": "C:\\Users\\toanl\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\toanl\\Documents\\GitHub\\ASP\\doanasp\\doanasp\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\vanti\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\toanl\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -8550,7 +8545,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }
