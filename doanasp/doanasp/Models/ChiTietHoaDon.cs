@@ -12,6 +12,7 @@ namespace doanasp.Models
 {
     public class ChiTietHoaDon
     {
+
         [Key]
         [DisplayName("Mã Hóa Đơn")]
         public HoaDon MAHOADON { get; set; }
