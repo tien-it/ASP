@@ -6,10 +6,13 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+
+
 namespace doanasp.Models
 {
     public class ChiTietHoaDon
     {
+<<<<<<< Updated upstream
             public int id { get; set; }
             
             [DisplayName("MÃ HÓA ĐƠN")]
@@ -26,5 +29,20 @@ namespace doanasp.Models
             [DisplayName("TRẠNG THÁI")]
             public int TRANGTHAI { get; set; }
        
+=======
+        [Key]
+        [DisplayName("Mã Hóa Đơn")]
+        public HoaDon MAHOADON { get; set; }
+        [DisplayName("Mã Chi Tiết Sản Phẩm")]
+        public ChiTietSanPham MACHITIETSANPHAM { get; set; }
+        [DisplayName("Số Lượng")]
+        public int SOLUONG { get; set; }
+        [DisplayName("Đơn GIá")]
+        public int DONGIA { get; set; }
+        [DisplayName("Thành Tiền")]
+        public int THANHTIEN { get; set; }
+        [DisplayName("Trạng Thái ")]
+        public int TRANGTHAI { get; set; }
+>>>>>>> Stashed changes
     }
 }

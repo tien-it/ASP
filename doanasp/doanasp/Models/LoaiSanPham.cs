@@ -11,8 +11,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace doanasp.Models
 {
     public class LoaiSanPham
-    {   //mã loại sản phẩm, khóa chính 
+    {
         [Key]
+<<<<<<< Updated upstream
         [DisplayName("MÃ LOẠI SẢN PHẨM")]
         public String MALOAISP { get; set; }
 
@@ -24,5 +25,13 @@ namespace doanasp.Models
         [DisplayName("TRẠNG THÁI")]
         public int trangthai { get; set; }
         public List<SanPham> sanPhams { get; set; }
+=======
+        [DisplayName("Mã Loại Sản Phảm")]
+        public string MALOAISP { get; set; }
+        [DisplayName("Tên Loại Sản Phẩm")]
+        public string TENLOAISP { get; set; }
+        [DisplayName("Trạng Thái")]
+        public string TRANGTHAI { get; set; }
+>>>>>>> Stashed changes
     }
 }
