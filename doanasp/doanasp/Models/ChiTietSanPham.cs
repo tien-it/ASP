@@ -9,27 +9,26 @@ namespace doanasp.Models
     public class ChiTietSanPham
     {
         [Key]
-        [DisplayName("MÃ SẢN PHẨM")]
-        public String MASANPHAM { get; set; }
-
-        [DisplayName("MÃ CHI TIẾT SẢN PHẨM ")]
-        public String MACHITIETSANPHAM { get; set; }
-
-        [DisplayName("THƯƠNG HIỆU ")]
-        public String THUONGHIEU { get; set; }
-
-        [DisplayName("NOI SẢN XUẤT")]
-        public String NOISANXUAT { get; set; }
-
-        [DisplayName("CHẤT LIỆU")]
-        public String CHATLIEU { get; set; }
-        [DisplayName("PHONG CÁCH")]
-        public String PHONGCACH { get; set; }
-        [DisplayName("MÀU SẮC")]
-        public String MAUSAC { get; set; }
-
-
-        [DisplayName("TRANGTHAI")]
+        [DisplayName("Mã San Phẩm")]
+        public SanPham MASANPHAM { get; set; }
+        [DisplayName("Mã Chi Tiết Sản Phẩm")]
+        public string MACHITIETSANPHAM { get; set; }
+        [DisplayName("Thương Hiệu")]
+        public string THUONGHIEU { get; set; }
+        [DisplayName("Nơi Sản Xuất ")]
+        public string NOISANXUAT { get; set; }
+        [DisplayName("Chất Liệu")]
+        public string CHATLIEU { get; set; }
+        [DisplayName("Phong Cách")]
+        public string PHONGCACH { get; set; }
+        [DisplayName("Màu Sắc")]
+        public string MAUSAC { get; set; }
+        [DisplayName("Chiều Dài")]
+        public string CHIEUDAI { get; set; }
+        [DisplayName("Chiều Rộng")]
+        public string CHIEURONG { get; set; }
+        [DisplayName("Trạng Thái ")]
         public int TRANGTHAI { get; set; }
+
     }
 }

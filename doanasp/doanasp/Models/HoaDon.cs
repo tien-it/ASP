@@ -31,7 +31,6 @@ namespace doanasp.Models
         
         [DisplayName("NGÀY GIAO")]
         public DateTime NGAYGIAO { get; set; }
-        
         [DisplayName("TỔNG TIỀN")]
         public int TONGTIEN { get; set; }
         //trang thái hóa đơn : 0 đang xử lý , 1 đã tiếp nhận, 2 đang giao, 4 là giao hàng thành công, -1 bị hủy 

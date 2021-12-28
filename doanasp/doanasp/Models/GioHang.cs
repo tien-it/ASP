@@ -23,7 +23,7 @@ namespace doanasp.Models
         public Account MAKHACHHANG { get; set; }
         //số lượng
         [DisplayName("SỐ LƯỢNG")]
-        public int soluong { get; set; }
+        public int SOLUONG { get; set; }
         //trạng thái  1 là còn sản phẩm . -1 là hết sản phẩm 
         [DisplayName("TRẠNG THÁI")]
         public int TRANGTHAI { get; set; }
