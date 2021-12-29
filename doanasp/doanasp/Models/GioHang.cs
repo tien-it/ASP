@@ -16,17 +16,17 @@ namespace doanasp.Models
         //mã  sản phẩm
 
         [DisplayName("MÃ SẢN PHẨM")]
-        public SanPham MACHITIETSANPHAM { get; set; }
+        public SanPham masanpham { get; set; }
         //mã khách hàng 
         
         [DisplayName("MÃ KHÁCH HÀNG")]
-        public Account MAKHACHHANG { get; set; }
+        public account makhachhang { get; set; }
         //số lượng
         [DisplayName("SỐ LƯỢNG")]
-        public int SOLUONG { get; set; }
+        public String soluong { get; set; }
         //trạng thái  1 là còn sản phẩm . -1 là hết sản phẩm 
         [DisplayName("TRẠNG THÁI")]
-        public int TRANGTHAI { get; set; }
+        public int trangthai { get; set; }
         
     }
 }

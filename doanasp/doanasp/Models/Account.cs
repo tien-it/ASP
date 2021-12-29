@@ -4,31 +4,33 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace doanasp.Models
 {
-    public class Account
-    {
+    public class account
+    {  
         [Key]
-        [DisplayName("MÃ TÀI KHOẢN")]
-        public String MAKHACHHANG { get; set; }
-        [DisplayName("HỌ VÀ TÊN ")]
-        public String HOVATEN { get; set; }
-        [DisplayName("MẬT KHẨU")]
-        public String MATKHAU { get; set; }
-        [DisplayName("SỐ ĐIỆN THOẠI")]
-        public String SODIENTHOAI { get; set; }
-        [DisplayName("EMAIL")]
-        public String EMAIL { get; set; }
-        [DisplayName("ĐỊA CHỈ")]
-        public String DIACHI { get; set; }
-        [DisplayName("GIỚI TÍNH")]
-        public String GIOITINH { get; set; }
-        [DisplayName("NGÀY SINH")]
-        public DateTime NGAYSINH { get; set; }
-        [DisplayName("LÀ ADMIN")]
-        public bool ISADMIN { get; set; }
-        [DisplayName("Trạng Thái ")]
-        public int TRANGTHAI { get; set; }
+        [DisplayName("MÃ KHÁCH HÀNG")]
+        public int makhachhang { get; set; }
+        [DisplayName("Tên đăng nhập")]
+        public string tendangnhap { get; set; }
+        [DisplayName("Mật Khẩu")]
+        public String matkhau { get; set; }
+        [DisplayName("Email")]
+        public String email { get; set; }
+        [DisplayName("Họ và Tên")]
+        public String hovaten { get; set; }
+        [DisplayName("Địa Chỉ")]
+        public String diachi { get; set; }
+        [DisplayName("SĐT")]
+        public String sodienthoai { get; set; }
+        [DisplayName("Phương Thức Đăng nhập")]
+        public String phuongthucdangnhap { get; set; }
+        [DisplayName("Loại")]
+        public int trangthai { get; set; }
+        public List<GioHang> gioHangs  { get; set; }
+        public List<HoaDon> hoaDons { get; set; }
     }
 }

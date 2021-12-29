@@ -179,3 +179,7 @@ E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\HoaDons\Detail
 E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\HoaDons\Edit.cshtml.g.cs
 E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\HoaDons\Index.cshtml.g.cs
 E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutAdminIndex.cshtml.g.cs
+E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\accounts\ByAddress.cshtml.g.cs
+E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\accounts\ByEmail.cshtml.g.cs
+E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\accounts\Search.cshtml.g.cs
+E:\Github\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\SanPhams\ByPriceRange.cshtml.g.cs

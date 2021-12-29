@@ -1,0 +1,43 @@
+﻿@model IEnumerable<doanasp.Models.LoaiSanPham>
+@{
+    ViewData["Title"] = "Index";
+   // Layout = "_LayoutAdminIndex";
+}
+<nav id="nav">
+    <h1>Danh Mục Sản Phẩm</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.tensanpham)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.trangthai)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tensanpham)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.trangthai)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.maloai">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.maloai">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.maloai">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</nav>
