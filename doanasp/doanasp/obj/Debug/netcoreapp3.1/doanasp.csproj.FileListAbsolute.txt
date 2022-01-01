@@ -364,3 +364,5 @@ C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\doan
 C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Products\PD.cshtml.g.cs
 C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\ProductTypes\PDT.cshtml.g.cs
 C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Home\Checkout.cshtml.g.cs
+C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Home\Login.cshtml.g.cs
+C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Login.cshtml.g.cs
