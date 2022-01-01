@@ -27,7 +27,7 @@ namespace doanasp
         {
             services.AddControllersWithViews();
             services.AddDbContext<ShopContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("Shop")));
+            options.UseSqlServer(Configuration.GetConnectionString("DAShop")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

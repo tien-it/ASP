@@ -9,28 +9,36 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace doanasp.Models
 {
-    public class account
-    {  
+    public class Account
+    {
         [Key]
-        [DisplayName("MÃ KHÁCH HÀNG")]
-        public int makhachhang { get; set; }
-        [DisplayName("Tên đăng nhập")]
-        public string tendangnhap { get; set; }
-        [DisplayName("Mật Khẩu")]
-        public String matkhau { get; set; }
+        [DisplayName("ID")]
+        public int id { get; set; }
+        [DisplayName("UserName")]
+        [Required(ErrorMessage = "{0} không được bỏ trống")]
+        [MaxLength(20, ErrorMessage = "Maximum 20 characters")]
+        public string Username { get; set; }
+        [DisplayName("PassWord")]
+        [Required(ErrorMessage = "{0} không được bỏ trống")]
+        [MaxLength(20, ErrorMessage = "Maximum 20 characters")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
         [DisplayName("Email")]
-        public String email { get; set; }
-        [DisplayName("Họ và Tên")]
-        public String hovaten { get; set; }
-        [DisplayName("Địa Chỉ")]
-        public String diachi { get; set; }
-        [DisplayName("SĐT")]
-        public String sodienthoai { get; set; }
-        [DisplayName("Phương Thức Đăng nhập")]
-        public String phuongthucdangnhap { get; set; }
-        [DisplayName("Loại")]
-        public int trangthai { get; set; }
-        public List<GioHang> gioHangs  { get; set; }
-        public List<HoaDon> hoaDons { get; set; }
+        public string Email { get; set; }
+        [DisplayName("Phone number")]
+        [RegularExpression("0\\d{9}", ErrorMessage = "SĐT không hợp lệ")]
+        public string Phone { get; set; }
+        [DisplayName("Address")]
+        public string Address { get; set; }
+        [DisplayName("Full Name")]
+        public string Fullname { get; set; }
+        [DisplayName("Is Admin")]
+        public bool IsAdmin { get; set; }
+        [DisplayName("Avatar")]
+        [DataType(DataType.ImageUrl)]
+        public string Avatar { get; set; }
+        [DisplayName("Status")]
+        public bool Status { get; set; }
+        public List<Invoice> Invoices { get; set; }
     }
 }
