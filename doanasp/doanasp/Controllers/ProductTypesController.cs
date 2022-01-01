@@ -13,7 +13,10 @@ namespace doanasp.Controllers
     public class ProductTypesController : Controller
     {
         private readonly ShopContext _context;
-
+        public IActionResult PDT()
+        {
+            return View();
+        }
         public ProductTypesController(ShopContext context)
         {
             _context = context;
