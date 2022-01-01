@@ -49,8 +49,8 @@ namespace doanasp.Controllers
         // GET: Carts/Create
         public IActionResult Create()
         {
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Password");
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Author");
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Username");
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
             return View();
         }
 
@@ -67,8 +67,8 @@ namespace doanasp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Password", cart.AccountId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Author", cart.ProductId);
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Username", cart.AccountId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", cart.ProductId);
             return View(cart);
         }
 
@@ -85,8 +85,8 @@ namespace doanasp.Controllers
             {
                 return NotFound();
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Password", cart.AccountId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Author", cart.ProductId);
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Username", cart.AccountId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", cart.ProductId);
             return View(cart);
         }
 
@@ -122,8 +122,8 @@ namespace doanasp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Password", cart.AccountId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Author", cart.ProductId);
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Username", cart.AccountId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", cart.ProductId);
             return View(cart);
         }
 

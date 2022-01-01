@@ -48,7 +48,7 @@ namespace doanasp.Controllers
         // GET: Invoices/Create
         public IActionResult Create()
         {
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Password");
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Username");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace doanasp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Password", invoice.AccountId);
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Username", invoice.AccountId);
             return View(invoice);
         }
 
@@ -82,7 +82,7 @@ namespace doanasp.Controllers
             {
                 return NotFound();
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Password", invoice.AccountId);
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Username", invoice.AccountId);
             return View(invoice);
         }
 
@@ -118,7 +118,7 @@ namespace doanasp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Password", invoice.AccountId);
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Username", invoice.AccountId);
             return View(invoice);
         }
 

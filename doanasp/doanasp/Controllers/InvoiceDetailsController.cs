@@ -50,7 +50,7 @@ namespace doanasp.Controllers
         public IActionResult Create()
         {
             ViewData["InvoiceId"] = new SelectList(_context.Invoides, "id", "id");
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Author");
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
             return View();
         }
 
@@ -68,7 +68,7 @@ namespace doanasp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["InvoiceId"] = new SelectList(_context.Invoides, "id", "id", invoiceDetail.InvoiceId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Author", invoiceDetail.ProductId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", invoiceDetail.ProductId);
             return View(invoiceDetail);
         }
 
@@ -86,7 +86,7 @@ namespace doanasp.Controllers
                 return NotFound();
             }
             ViewData["InvoiceId"] = new SelectList(_context.Invoides, "id", "id", invoiceDetail.InvoiceId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Author", invoiceDetail.ProductId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", invoiceDetail.ProductId);
             return View(invoiceDetail);
         }
 
@@ -123,7 +123,7 @@ namespace doanasp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["InvoiceId"] = new SelectList(_context.Invoides, "id", "id", invoiceDetail.InvoiceId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Author", invoiceDetail.ProductId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", invoiceDetail.ProductId);
             return View(invoiceDetail);
         }
 
