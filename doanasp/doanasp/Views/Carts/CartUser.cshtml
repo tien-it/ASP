@@ -1,0 +1,50 @@
+﻿@model IEnumerable<doanasp.Models.Cart>
+@{
+    Layout = "_LayoutMember";
+}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product.SKU)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product.Price)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.SKU)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Price)
+                </td>
+
+            </tr>
+        }
+        </tbody>
+</table>
+
+@section productTypeName {
+    <select class="input-select" asp-items="ViewBag.ProductType">
+    </select>
+
+}

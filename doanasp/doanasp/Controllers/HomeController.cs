@@ -1,27 +1,35 @@
 ﻿using doanasp.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
+using doanasp.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace doanasp.Controllers
+
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ShopContext   _context;
+  
+       
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController( ShopContext context)
         {
-            _logger = logger;
+          
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+             var lstProduct = _context.Products.Include(i=>i.ProductType);
+            ViewData["ProductType"] = new SelectList(_context.ProductTypes, "Id", "TypeName");
+            return View( await lstProduct.ToListAsync());
         }
+      
 
         public IActionResult Privacy()
         {
@@ -37,9 +45,6 @@ namespace doanasp.Controllers
         {
             return View();
         }
-        public IActionResult Login()
-        {
-            return View();
-        }
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿@{ Layout = "_Login"; ViewData["Title"] = "Login";}
+﻿@model doanasp.Models.Account
+@{ Layout = "_Login"; ViewData["Title"] = "Login";}
 
 <div class="container" id="container">
     <div class="form-container sign-up-container">
@@ -17,18 +18,13 @@
         </form>
     </div>
     <div class="form-container sign-in-container">
-        <form action="#">
+        <form method="post">
             <h1>Sign in</h1>
-            <div class="social-container">
-                <a asp-controller="Home" asp-action="Index" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a asp-controller="Home" asp-action="Index" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a asp-controller="Home" asp-action="Index" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-            <span>or use your account</span>
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <a href="#">Forgot your password?</a>
-            <button asp-controller="Home" asp-action="Index">Sign In</button>
+            <input type="text" placeholder="Username" asp-for="Username" />
+            <input type="password" placeholder="Password" asp-for="Password" />
+            <A href="#">Forgot your password?</A>
+            <button asp-controller="Accounts" asp-action="Login">Sign In</button>
+            <p style="color:red">@ViewBag.ErrorMessage</p>
         </form>
     </div>
     <div class="overlay-container">

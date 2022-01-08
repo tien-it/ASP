@@ -17,6 +17,7 @@ namespace doanasp.Controllers
         {
             return View();
         }
+       
         public ProductTypesController(ShopContext context)
         {
             _context = context;

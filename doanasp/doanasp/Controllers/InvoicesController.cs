@@ -49,6 +49,7 @@ namespace doanasp.Controllers
         public IActionResult Create()
         {
             ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Username");
+
             return View();
         }
 

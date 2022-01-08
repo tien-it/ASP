@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using doanasp.Data;
 using doanasp.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+
 
 namespace doanasp.Controllers
 {
@@ -14,9 +15,12 @@ namespace doanasp.Controllers
     {
         private readonly ShopContext _context;
 
-        public AccountsController(ShopContext context)
+        private readonly ILogger<AccountsController> _logger;
+
+        public AccountsController(ILogger<AccountsController> logger,ShopContext context)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: Accounts
@@ -52,6 +56,26 @@ namespace doanasp.Controllers
         // POST: Accounts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+  
+        
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(string Username, string Password)
+        {
+            var account =   _context.Accounts.Where(a => a.Username == Username && a.Password == Password).FirstOrDefault();
+            if (account != null)
+            {
+                HttpContext.Session.SetString("id", account.id.ToString());
+                HttpContext.Session.SetString("Password", account.Password);
+                return RedirectToAction("index", "Home");
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Đăng nhập thất bại";
+                return View();
+            }
+
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,Avatar,Status")] Account account)

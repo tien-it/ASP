@@ -25,6 +25,11 @@ namespace doanasp.Controllers
             var shopContext = _context.Carts.Include(c => c.Account).Include(c => c.Product);
             return View(await shopContext.ToListAsync());
         }
+        public async Task<IActionResult> CartUser()
+        {
+            var shopContext = _context.Carts.Include(c => c.Account).Include(c => c.Product);
+            return View(await shopContext.ToListAsync());
+        }
 
         // GET: Carts/Details/5
         public async Task<IActionResult> Details(int? id)

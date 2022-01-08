@@ -49,12 +49,11 @@ namespace doanasp
             app.UseRouting();
 
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Login}/{id?}");
+                    pattern: "{controller=Accounts}/{action=Login}/{id?}");
             });
         }
     }
