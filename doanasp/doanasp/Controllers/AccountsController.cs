@@ -58,15 +58,15 @@ namespace doanasp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
   
         
-        [HttpPost]
+        //[HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(string Username, string Password)
+        public async Task<IActionResult> Login (string Username, string Password)
         {
             var account =   _context.Accounts.Where(a => a.Username == Username && a.Password == Password).FirstOrDefault();
             if (account != null)
             {
-                HttpContext.Session.SetString("id", account.id.ToString());
-                HttpContext.Session.SetString("Password", account.Password);
+                //HttpContext.Session.SetString("id", account.id.ToString());
+                //HttpContext.Session.SetString("Password", account.Password);
                 return RedirectToAction("index", "Home");
             }
             else
