@@ -23,6 +23,10 @@ namespace doanasp.Controllers
         public async Task<IActionResult> Index()
         {
             var shopContext = _context.InvoiceDetails.Include(i => i.Invoice).Include(i => i.Product);
+            if (HttpContext.Request.Cookies.ContainsKey("Username"))
+            {
+                ViewBag.UserName = HttpContext.Request.Cookies["Username"].ToString();
+            }
             return View(await shopContext.ToListAsync());
         }
 

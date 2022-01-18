@@ -25,9 +25,27 @@ namespace doanasp.Controllers
             var shopContext = _context.Products.Include(p => p.ProductType);
             return View(await shopContext.ToListAsync());
         }
-        public IActionResult PD()
+        public async Task<IActionResult> Detail(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var productDetail = await _context.Products
+                .Include(p => p.ProductType)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            var product = from prd in _context.Products
+                          select prd;
+            if (productDetail == null)
+            {
+                return NotFound();
+            }
+            return View(productDetail);
+        }
+        public async Task<IActionResult> PD()
+        {
+            var shopContext = _context.Products.Include(p => p.ProductType);
+            return View(await shopContext.ToListAsync());
         }
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
