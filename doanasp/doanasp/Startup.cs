@@ -25,6 +25,11 @@ namespace doanasp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+            services.AddSession(ses =>
+            {
+                ses.IdleTimeout = new TimeSpan(7, 0, 0, 0);
+            });
             services.AddControllersWithViews();
             services.AddDbContext<ShopContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DAShop")));
@@ -53,7 +58,7 @@ namespace doanasp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Accounts}/{action=Login}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
