@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using doanasp.Data;
 using doanasp.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace doanasp.Controllers
 {
@@ -25,9 +26,17 @@ namespace doanasp.Controllers
             var shopContext = _context.Carts.Include(c => c.Account).Include(c => c.Product);
             return View(await shopContext.ToListAsync());
         }
-        public async Task<IActionResult> CartUser()
+        public async Task<IActionResult> CartUser(int id)
         {
-            var shopContext = _context.Carts.Include(c => c.Account).Include(c => c.Product);
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            var shopContext = _context.Carts.Include(c => c.Account).Include(c => c.Product).Where (i => i.AccountId==id);
             return View(await shopContext.ToListAsync());
         }
 

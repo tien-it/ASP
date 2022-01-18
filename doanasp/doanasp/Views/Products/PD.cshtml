@@ -1,6 +1,12 @@
 ﻿@{
     Layout = "_LayoutMember";
+    string username = "anonymous";
+    if (ViewBag.UserName != null)
+    {
+        username = ViewBag.UserName;
+    }
 }
+@section name{@username};
 <body>
     <!-- HEADER -->
     <!-- /HEADER -->

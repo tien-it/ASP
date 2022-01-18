@@ -25,7 +25,15 @@ namespace doanasp.Controllers
 
         public async Task<IActionResult> Index()
         {
-             var lstProduct = _context.Products.Include(i=>i.ProductType);
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            var lstProduct = _context.Products.Include(i=>i.ProductType);
             ViewData["ProductType"] = new SelectList(_context.ProductTypes, "Id", "TypeName");
             return View( await lstProduct.ToListAsync());
         }

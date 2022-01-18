@@ -1,14 +1,25 @@
 ﻿@model IEnumerable<doanasp.Models.Product>
 @{
     Layout = "_LayoutMember"; ViewData["Title"] = "Home Page";
-    string username = "Khach";
+    string username = "anonymous";
+    int Id =0 ;
     if (ViewBag.UserName != null)
     {
         username = ViewBag.UserName;
+        Id = ViewBag.id;
+
+    }
+    if (ViewBag.id != null)
+    {
+        Id = ViewBag.id;
+
     }
 }
 
+@section id{@Id};
+
 @section name{@username};
+
 <nav id="navigation">
     <!-- container -->
     <!-- /container -->
@@ -108,7 +119,7 @@
                                         </div>
                                         <div class="product-body">
                                             <p class="product-category">@item.ProductType.TypeName</p>
-                                            <h3 class="product-name"><a href="#">@item.Name</a></h3>
+                                            <h3 class="product-name"><a asp-controller="Products" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a></h3>
                                             <h4 class="product-price">$@item.Price <del class="product-old-price">$@item.Price</del></h4>
                                             <div class="product-rating">
                                                 <i class="fa fa-star"></i>

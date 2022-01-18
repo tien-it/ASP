@@ -56,8 +56,12 @@ namespace doanasp.Controllers
         // POST: Accounts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-  
-        
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
+        }
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Login (string Username, string Password)
@@ -65,8 +69,9 @@ namespace doanasp.Controllers
             var account =   _context.Accounts.Where(a => a.Username == Username && a.Password == Password).FirstOrDefault();
             if (account != null)
             {
-                //HttpContext.Session.SetString("id", account.id.ToString());
-                //HttpContext.Session.SetString("Password", account.Password);
+                HttpContext.Session.SetInt32("id", account.id);
+                HttpContext.Session.SetString("Password", account.Password);
+                HttpContext.Session.SetString("Username", account.Username);
                 return RedirectToAction("index", "Home");
             }
             else

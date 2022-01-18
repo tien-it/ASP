@@ -89,7 +89,7 @@
                             <!-- /Wishlist -->
                             <!-- Cart -->
                             <div>
-                                <a asp-controller="Carts" asp-action="CartUser" >
+                                <a asp-controller="Carts" asp-action="CartUser" asp-route-id ="@RenderSection("id")" >
                                     <i class="fa fa-shopping-cart"></i>
                                     <span>Your Cart</span>
                                 </a>
