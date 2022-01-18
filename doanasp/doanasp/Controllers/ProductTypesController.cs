@@ -13,9 +13,21 @@ namespace doanasp.Controllers
     public class ProductTypesController : Controller
     {
         private readonly ShopContext _context;
-        public IActionResult PDT()
+        public async Task<IActionResult> Detail(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var productType = await _context.ProductTypes
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (productType == null)
+            {
+                return NotFound();
+            }
+
+            return View(productType);
         }
        
         public ProductTypesController(ShopContext context)
@@ -26,6 +38,10 @@ namespace doanasp.Controllers
         // GET: ProductTypes
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Request.Cookies.ContainsKey("Username"))
+            {
+                ViewBag.UserName = HttpContext.Request.Cookies["Username"].ToString();
+            }
             return View(await _context.ProductTypes.ToListAsync());
         }
 
