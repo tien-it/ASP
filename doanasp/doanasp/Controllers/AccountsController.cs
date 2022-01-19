@@ -27,7 +27,7 @@ namespace doanasp.Controllers
 
         public ActionResult Register()
         {
-            return View();
+            return RedirectToAction("Login", "Accounts");
         }
         //POST: Register
         [HttpPost]
@@ -44,15 +44,21 @@ namespace doanasp.Controllers
                     acc.Phone = Phone;
                     acc.Address = Address;
                     acc.Fullname = Fullname;
-                    _context.Add(acc);
-                }
+                    acc.Status = true;
+                _context.Add(acc);
+                HttpContext.Session.SetInt32("id", acc.id);
+                HttpContext.Session.SetString("Password", acc.Password);
+                HttpContext.Session.SetString("Username", acc.Username);
+            }
                 else
                 {
                     ViewBag.error = "Error";
-                    return View();
-                }
-                _context.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Accounts");
+            }
+           
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Accounts
@@ -114,21 +120,21 @@ namespace doanasp.Controllers
             }
 
         }
-        public async Task<IActionResult> LoginSesstion()
-        {
-            var password = HttpContext.Session.GetString("Password");
-            var username = HttpContext.Session.GetString("Username");
-            var account = _context.Accounts.Where(a => a.Username == username && a.Password == password).FirstOrDefault();
-            if (account != null)
-            {
-                return RedirectToAction("index", "Home");
-            }
-            else
-            {
-                ViewBag.ErrorMessage = "Đăng nhập thất bại";
-                return View();
-            }
-        }
+        //public async Task<IActionResult> LoginSesstion()
+        //{
+        //    var password = HttpContext.Session.GetString("Password");
+        //    var username = HttpContext.Session.GetString("Username");
+        //    var account = _context.Accounts.Where(a => a.Username == username && a.Password == password).FirstOrDefault();
+        //    if (account != null)
+        //    {
+        //        return RedirectToAction("index", "Home");
+        //    }
+        //    else
+        //    {
+        //        ViewBag.ErrorMessage = "Đăng nhập thất bại";
+        //        return View();
+        //    }
+        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,Avatar,Status")] Account account)
