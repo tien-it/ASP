@@ -48,5 +48,7 @@ namespace doanasp.Models
         [DisplayName("Status")]
         public bool Status { get; set; }
         public List<InvoiceDetail> InvoiceDetails { get; set; }
+        public List<Cart> carts { get; set; }
+        public List<Wish> wishes { get; set; }
     }
 }
