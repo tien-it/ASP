@@ -20,7 +20,7 @@
 
     }
 }
-
+@section idWish{@Id};
 @section id{@Id};
 
 @section name{@username};
@@ -135,7 +135,7 @@
                                             </div>
                                         </div>
                                         <div class="add-to-cart">
-                                            <button  class="add-to-cart-btn" ><i class="fa fa-shopping-cart"></i> <a asp-controller="Carts" asp-action="Add" asp-route-id="@item.Id">add to cart </a></button>
+                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> <a asp-controller="Carts" asp-action="Add" asp-route-id="@item.Id">add to cart </a></button>
                                         </div>
                                     </div>
                                     <!-- /product -->
