@@ -1,13 +1,29 @@
 ﻿@model IEnumerable<doanasp.Models.Product>
 @{
-    Layout = "_LayoutMember";
+    Layout = "_LayoutMember"; ViewData["Title"] = "Home Page";
     string username = "anonymous";
+    int Id = 0;
     if (ViewBag.UserName != null)
     {
         username = ViewBag.UserName;
+        Id = ViewBag.id;
+        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>}
+    }
+    else
+    {
+        @section Member{}
+    }
+
+    if (ViewBag.id != null)
+    {
+        Id = ViewBag.id;
+
     }
 }
-@section name{@username};
+
+@section id{@Id}
+
+@section name{@username}
 <body>
     <!-- HEADER -->
     <!-- /HEADER -->

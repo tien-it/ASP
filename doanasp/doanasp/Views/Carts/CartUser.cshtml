@@ -3,14 +3,20 @@
     Layout = "_LayoutMember";
     string username = "anonymous";
     int Id = 0;
-    if (ViewBag.UserName != null)
-    {
-        username = ViewBag.UserName;
-    }
     if (ViewBag.id != null)
     {
         Id = ViewBag.id;
 
+    }
+    if (ViewBag.UserName != null)
+    {
+        username = ViewBag.UserName;
+        Id = ViewBag.id;
+        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>};
+    }
+    else
+    {
+        @section Member{};
     }
 
 }

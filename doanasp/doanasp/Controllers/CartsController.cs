@@ -26,13 +26,14 @@ namespace doanasp.Controllers
             var shopContext = _context.Carts.Include(c => c.Account).Include(c => c.Product);
             return View(await shopContext.ToListAsync());
         }
-        public async Task<IActionResult> CartUser(int id)
+        public async Task<IActionResult> CartUser()
         {
-            if (HttpContext.Session.Keys.Contains("Username"))
+            var id = HttpContext.Session.GetInt32("id");
+            if ( HttpContext.Session.Keys.Contains("Username"))
             {
                 ViewBag.UserName = HttpContext.Session.GetString("Username");
             }
-            if (HttpContext.Session.Keys.Contains("id"))
+            if ( HttpContext.Session.Keys.Contains("id"))
             {
                 ViewBag.id = HttpContext.Session.GetInt32("id");
             }
@@ -59,7 +60,36 @@ namespace doanasp.Controllers
 
             return View(cart);
         }
+        //thêm giỏ hàng
+        public  IActionResult Add(int id)
+        {
+            return Add(id, 1);
+        }
+        [HttpPost]
+        public  IActionResult Add(int ProductId,int Quantity)
+        {
+            string username = HttpContext.Session.GetString("Username");
+            int id = _context.Accounts.FirstOrDefault(c => c.Username == username).id;
+            Cart cart = _context.Carts.FirstOrDefault(c => c.AccountId == id && c.ProductId == ProductId);
+            if( cart == null )
+            {
+                cart = new Cart();
+                cart.AccountId = id;
+                cart.ProductId = ProductId;
+                cart.Quantity = Quantity;
+                _context.Add(cart);
 
+            }
+            else
+            {
+                cart.Quantity += Quantity;
+
+            }
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(CartUser));
+        }
+        //end thêm giỏ hàng
         // GET: Carts/Create
         public IActionResult Create()
         {

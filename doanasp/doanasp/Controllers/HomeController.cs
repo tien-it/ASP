@@ -24,7 +24,7 @@ namespace doanasp.Controllers
         }
 
         public async Task<IActionResult> Index()
-        {
+        {   
             if (HttpContext.Session.Keys.Contains("Username"))
             {
                 ViewBag.UserName = HttpContext.Session.GetString("Username");

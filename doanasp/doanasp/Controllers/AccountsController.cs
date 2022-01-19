@@ -64,7 +64,8 @@ namespace doanasp.Controllers
         }
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login (string Username, string Password)
+   
+        public async Task<IActionResult> Login(string Username, string Password)
         {
             var account =   _context.Accounts.Where(a => a.Username == Username && a.Password == Password).FirstOrDefault();
             if (account != null)
@@ -80,6 +81,21 @@ namespace doanasp.Controllers
                 return View();
             }
 
+        }
+        public async Task<IActionResult> LoginSesstion()
+        {
+            var password = HttpContext.Session.GetString("Password");
+            var username = HttpContext.Session.GetString("Username");
+            var account = _context.Accounts.Where(a => a.Username == username && a.Password == password).FirstOrDefault();
+            if (account != null)
+            {
+                return RedirectToAction("index", "Home");
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Đăng nhập thất bại";
+                return View();
+            }
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

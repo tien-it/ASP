@@ -2,13 +2,18 @@
 @{
     Layout = "_LayoutMember"; ViewData["Title"] = "Home Page";
     string username = "anonymous";
-    int Id =0 ;
+    int Id = 0;
     if (ViewBag.UserName != null)
     {
         username = ViewBag.UserName;
         Id = ViewBag.id;
-
+        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>};
     }
+    else
+    {
+        @section Member{};
+    }
+
     if (ViewBag.id != null)
     {
         Id = ViewBag.id;
@@ -130,7 +135,7 @@
                                             </div>
                                         </div>
                                         <div class="add-to-cart">
-                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                            <button class="add-to-cart-btn" ><i class="fa fa-shopping-cart"></i> <a asp-controller="Carts" asp-action="Add" asp-route-id="@item.Id">add to cart </a></button>
                                         </div>
                                     </div>
                                     <!-- /product -->
