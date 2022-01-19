@@ -172,7 +172,7 @@ namespace doanasp.Controllers
         }
 
         // GET: Carts/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> DeleteUser(int? id)
         {
             if (id == null)
             {
@@ -192,6 +192,43 @@ namespace doanasp.Controllers
         }
 
         // POST: Carts/Delete/5
+        [HttpPost, ActionName("DeleteUser")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteUserConfirmed(int id)
+        {
+            var cart = await _context.Carts.FindAsync(id);
+            _context.Carts.Remove(cart);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(CartUser));
+        }
+
+
+
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var cart = await _context.Carts
+                .Include(c => c.Account)
+                .Include(c => c.Product)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (cart == null)
+            {
+                return NotFound();
+            }
+
+            return View(cart);
+        }
+
+
+
+
+
+        // POST: Carts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -201,6 +238,9 @@ namespace doanasp.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+
+
 
         private bool CartExists(int id)
         {
