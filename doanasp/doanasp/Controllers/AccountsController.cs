@@ -23,6 +23,38 @@ namespace doanasp.Controllers
             _logger = logger;
         }
 
+        //GET: Register
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+        //POST: Register
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(string Username,string Password,string Email,string Phone,string Address,string Fullname)
+        {
+            Account acc = _context.Accounts.FirstOrDefault(c => c.Username == Username && c.Password ==Password) ;
+                if (acc == null)
+                {
+                    acc = new Account();
+                    acc.Username = Username;
+                    acc.Password = Password;
+                    acc.Email = Email;
+                    acc.Phone = Phone;
+                    acc.Address = Address;
+                    acc.Fullname = Fullname;
+                    _context.Add(acc);
+                }
+                else
+                {
+                    ViewBag.error = "Error";
+                    return View();
+                }
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Home");
+        }
+
         // GET: Accounts
         public async Task<IActionResult> Index()
         {
