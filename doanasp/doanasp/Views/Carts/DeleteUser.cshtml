@@ -1,8 +1,28 @@
 ﻿@model doanasp.Models.Cart
 
 @{
-    ViewData["Title"] = "Delete";
+    Layout = "_LayoutMember";
+    string username = "anonymous";
+    int Id = 0;
+    if (ViewBag.id != null)
+    {
+        Id = ViewBag.id;
+
+    }
+    if (ViewBag.UserName != null)
+    {
+        username = ViewBag.UserName;
+        Id = ViewBag.id;
+        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>};
+    }
+    else
+    {
+        @section Member{};
+    }
+
 }
+@section id{@Id}
+@section name{@username}
 
 <h1>Delete</h1>
 
@@ -12,16 +32,28 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Account)
+            @Html.DisplayNameFor(model => model.Account.Fullname)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Account.Password)
+            @Html.DisplayFor(model => model.Account.Fullname)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product)
+            @Html.DisplayNameFor(model => model.Product.Name)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.Author)
+            @Html.DisplayFor(model => model.Product.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.SKU)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.SKU)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.Price)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Quantity)
@@ -37,3 +69,8 @@
         <a asp-action="CartUser">Back to List</a>
     </form>
 </div>
+@section productTypeName {
+    <select class="input-select" asp-items="ViewBag.ProductType">
+    </select>
+
+}
