@@ -19,7 +19,78 @@ namespace doanasp.Controllers
         {
             _context = context;
         }
-
+        public IActionResult Pay()
+        {
+            Invoice invoice = new Invoice();
+            string username = HttpContext.Session.GetString("Username");
+            Account acc = _context.Accounts.FirstOrDefault(c=>c.Username==username);
+            //Hoa don
+            DateTime now = DateTime.Now;
+            invoice.Code = now.ToString("yyMMddhhmmss");
+            invoice.AccountId = _context.Accounts.FirstOrDefault(a => a.Username == username).id;
+            invoice.IssueDate = now;
+            invoice.ShippingPhone = acc.Phone;
+            invoice.ShippingAddress = acc.Address;
+            invoice.Total = _context.Carts.Include(c => c.Account).Include(c => c.Product)
+                          .Where(c => c.Account.Username == username)
+                          .Sum(c => c.Quantity * c.Product.Price);
+            _context.Add(invoice);
+            _context.SaveChanges();
+            //Chi Tiet Hoa Don
+            List<Cart> carts = _context.Carts.Include(c => c.Product).Include(c => c.Account)
+                             .Where(c => c.Account.Username == username).ToList();
+            foreach (Cart item in carts)
+            {
+                InvoiceDetail invoiceDetail = new InvoiceDetail();
+                invoiceDetail.InvoiceId = invoice.id;
+                invoiceDetail.ProductId = item.ProductId;
+                invoiceDetail.Quantity = item.Quantity;
+                invoiceDetail.UnitPrice = item.Product.Price;
+                _context.Add(invoiceDetail);
+            }
+            _context.SaveChanges();
+            foreach (Cart c in carts)
+            {
+                c.Product.Stock -= c.Quantity;
+                _context.Carts.Remove(c);
+            }
+            _context.SaveChanges();
+            return RedirectToAction("CartUser", "Carts");
+        }
+        //public IActionResult Pay([Bind("ShippingAddress,ShippingPhone")] Invoice invoice)
+        //{
+        //    string username = HttpContext.Session.GetString("Username");
+        //    //Hoa don
+        //    DateTime now = DateTime.Now;
+        //    invoice.Code = now.ToString("yyMMddhhmmss");
+        //    invoice.AccountId = _context.Accounts.FirstOrDefault(a=>a.Username==username).id;
+        //    invoice.IssueDate = now;
+        //    invoice.Total = _context.Carts.Include(c => c.Account).Include(c => c.Product)
+        //                  .Where(c => c.Account.Username == username)
+        //                  .Sum(c => c.Quantity * c.Product.Price);
+        //    _context.Add(invoice);
+        //    _context.SaveChanges();
+        //    //Chi Tiet Hoa Don
+        //    List<Cart> carts = _context.Carts.Include(c => c.Product).Include(c => c.Account)
+        //                     .Where(c=>c.Account.Username==username).ToList();
+        //    foreach(Cart item in carts)
+        //    {
+        //        InvoiceDetail invoiceDetail = new InvoiceDetail();
+        //        invoiceDetail.InvoiceId = invoice.id;
+        //        invoiceDetail.ProductId = item.ProductId;
+        //        invoiceDetail.Quantity = item.Quantity;
+        //        invoiceDetail.UnitPrice = item.Product.Price;
+        //        _context.Add(invoiceDetail);
+        //    }
+        //    _context.SaveChanges();
+        //    foreach(Cart c in carts)
+        //    {
+        //        c.Product.Stock -= c.Quantity;
+        //        _context.Carts.Remove(c);
+        //    }
+        //    _context.SaveChanges();
+        //    return RedirectToAction("CartUser","Carts");
+        //}
         // GET: Carts
         public async Task<IActionResult> Index()
         {
@@ -28,15 +99,20 @@ namespace doanasp.Controllers
         }
         public async Task<IActionResult> CartUser()
         {
+            string username = HttpContext.Session.GetString("Username");
+            ViewBag.CartsTotal = _context.Carts.Include(c => c.Product).Include(c => c.Account)
+                                .Where(c => c.Account.Username == username)
+                                .Sum(c => c.Quantity * c.Product.Price);
             var id = HttpContext.Session.GetInt32("id");
             if ( HttpContext.Session.Keys.Contains("Username"))
             {
-                ViewBag.UserName = HttpContext.Session.GetString("Username");
+                ViewBag.UserName = username;
             }
             if ( HttpContext.Session.Keys.Contains("id"))
             {
                 ViewBag.id = HttpContext.Session.GetInt32("id");
             }
+
             var shopContext = _context.Carts.Include(c => c.Account).Include(c => c.Product).Where (i => i.AccountId==id);
             return View(await shopContext.ToListAsync());
         }
@@ -90,38 +166,6 @@ namespace doanasp.Controllers
             return RedirectToAction(nameof(CartUser));
         }
 
-        //thanh toán>>> 
-
-        public IActionResult Pay()
-        {
-            string username = HttpContext.Session.GetString("Username");
-            ViewBag.Account = _context.Accounts.Where(a => a.Username == username).FirstOrDefault();
-            ViewBag.CartTotal = _context.Carts.Include(c => c.Product).Include( c => c.Account).Where( c => c.Account.Username == username ).Sum(
-                c => c.Product.Price * c.Quantity);
-
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Pay( [Bind("ShippingAddress, ShippingPhone")]Invoice invoice)
-        {
-            string username = HttpContext.Session.GetString("Username");
-            
-            
-            if (checkStock(username))
-            {
-                ViewBag.error = "có sản phẩm đã hết hàng , Vui lòng kiểm tra lại"
-                
-
-            }
-            else
-            {
-              
-
-            }
-            _context.SaveChanges();
-
-            return RedirectToAction(nameof(CartUser));
-        }
         private bool checkStock(string username)
         {
             List <Cart>  cart = _context.Carts.Include(c => c.Product).Include(c => c.Account).Where(c => c.Account.Username == username).ToList();

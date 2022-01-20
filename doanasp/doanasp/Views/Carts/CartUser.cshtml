@@ -7,11 +7,11 @@
     {
         username = ViewBag.UserName;
         Id = ViewBag.id;
-        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>};
+        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>}
     }
     else
     {
-        @section Member{};
+        @section Member{}
     }
 
     if (ViewBag.id != null)
@@ -20,11 +20,10 @@
 
     }
 }
-@section idWish{@Id};
-@section id{@Id};
+@section idWish{@Id}
+@section id{@Id}
 
-@section name{@username};
-;>
+@section name{@username}
 
 <div class="column" style="width:50%">
     <table class="table">
@@ -83,7 +82,13 @@
         </tbody>
     </table>
 </div>
-
+<div class="row">
+    <div class="col-md-4">
+            <div class="mb-3">Tổng Tiền: @ViewBag.CartsTotal.ToString("#,##0") VND</div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary "><a asp-controller="Carts" asp-action="Pay" >Pay</a></button>
+            </div>
+    </div>
 </div>
 
 
