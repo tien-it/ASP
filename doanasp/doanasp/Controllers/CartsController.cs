@@ -57,41 +57,32 @@ namespace doanasp.Controllers
             _context.SaveChanges();
             return RedirectToAction("CartUser", "Carts");
         }
-        //public IActionResult Pay([Bind("ShippingAddress,ShippingPhone")] Invoice invoice)
-        //{
-        //    string username = HttpContext.Session.GetString("Username");
-        //    //Hoa don
-        //    DateTime now = DateTime.Now;
-        //    invoice.Code = now.ToString("yyMMddhhmmss");
-        //    invoice.AccountId = _context.Accounts.FirstOrDefault(a=>a.Username==username).id;
-        //    invoice.IssueDate = now;
-        //    invoice.Total = _context.Carts.Include(c => c.Account).Include(c => c.Product)
-        //                  .Where(c => c.Account.Username == username)
-        //                  .Sum(c => c.Quantity * c.Product.Price);
-        //    _context.Add(invoice);
-        //    _context.SaveChanges();
-        //    //Chi Tiet Hoa Don
-        //    List<Cart> carts = _context.Carts.Include(c => c.Product).Include(c => c.Account)
-        //                     .Where(c=>c.Account.Username==username).ToList();
-        //    foreach(Cart item in carts)
-        //    {
-        //        InvoiceDetail invoiceDetail = new InvoiceDetail();
-        //        invoiceDetail.InvoiceId = invoice.id;
-        //        invoiceDetail.ProductId = item.ProductId;
-        //        invoiceDetail.Quantity = item.Quantity;
-        //        invoiceDetail.UnitPrice = item.Product.Price;
-        //        _context.Add(invoiceDetail);
-        //    }
-        //    _context.SaveChanges();
-        //    foreach(Cart c in carts)
-        //    {
-        //        c.Product.Stock -= c.Quantity;
-        //        _context.Carts.Remove(c);
-        //    }
-        //    _context.SaveChanges();
-        //    return RedirectToAction("CartUser","Carts");
-        //}
-        // GET: Carts
+        public IActionResult Tang(int id)
+        {
+            string username = HttpContext.Session.GetString("Username");
+            int ids = _context.Accounts.FirstOrDefault(c => c.Username == username).id;
+            Cart cart = _context.Carts.FirstOrDefault(c => c.Id == id&& c.AccountId==ids);
+            cart.Quantity += 1 ;
+            _context.SaveChanges();
+            return RedirectToAction("CartUser", "Carts");
+        }
+        public IActionResult Giam(int id)
+        {
+            string username = HttpContext.Session.GetString("Username");
+            int ids = _context.Accounts.FirstOrDefault(c => c.Username == username).id;
+            Cart cart = _context.Carts.FirstOrDefault(c => c.Id == id && c.AccountId == ids);
+            if (cart.Quantity == 1)
+            {
+                cart.Quantity = 1;
+            }
+            else
+            {
+                cart.Quantity -= 1;
+            }
+            _context.SaveChanges();
+            return RedirectToAction("CartUser", "Carts");
+        }
+            // GET: Carts
         public async Task<IActionResult> Index()
         {
             var shopContext = _context.Carts.Include(c => c.Account).Include(c => c.Product);

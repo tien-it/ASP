@@ -69,7 +69,11 @@
                         @Html.DisplayFor(modelItem => item.Product.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Quantity)
+                        <div class="buttons_added">
+                            <a asp-action="Giam" asp-route-id="@item.Id" type="button"><input type="button" value="-"></a>
+                            <input value="@Html.DisplayFor(modelItem => item.Quantity)">
+                            <a asp-action="Tang" asp-route-id="@item.Id" type="button"><input type="button" value="+"></a>
+                        </div>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Product.Price)
