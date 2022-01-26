@@ -23,7 +23,15 @@ namespace doanasp.Controllers
         {
             Invoice invoice = new Invoice();
             string username = HttpContext.Session.GetString("Username");
-            Account acc = _context.Accounts.FirstOrDefault(c=>c.Username==username);
+            if (!checkStock(username))
+            {
+                ViewBag.ErrorMessage = "Có Sản Phẩm Hết Hàng!";
+                ViewBag.Account = _context.Accounts.Where(c=>c.Username==username).FirstOrDefault();
+                ViewBag.CartsTotal = _context.Carts.Include(c => c.Product).Include(c => c.Account)
+                                .Where(c => c.Account.Username == username)
+                                .Sum(c => c.Quantity * c.Product.Price);
+            }
+                Account acc = _context.Accounts.FirstOrDefault(c=>c.Username==username);
             //Hoa don
             DateTime now = DateTime.Now;
             invoice.Code = now.ToString("yyMMddhhmmss");
@@ -56,6 +64,18 @@ namespace doanasp.Controllers
             }
             _context.SaveChanges();
             return RedirectToAction("CartUser", "Carts");
+        }
+        public IActionResult clearCart()
+        {
+            string username = HttpContext.Session.GetString("Username");
+            List<Cart> carts = _context.Carts.Include(c => c.Product).Include(c => c.Account)
+                             .Where(c => c.Account.Username == username).ToList();
+            foreach (Cart c in carts)
+            {
+                _context.Carts.Remove(c);
+            }
+            _context.SaveChanges();
+            return RedirectToAction(nameof(CartUser));
         }
         public IActionResult Tang(int id)
         {
