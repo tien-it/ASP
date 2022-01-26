@@ -111,7 +111,14 @@ namespace doanasp.Controllers
                 HttpContext.Session.SetInt32("id", account.id);
                 HttpContext.Session.SetString("Password", account.Password);
                 HttpContext.Session.SetString("Username", account.Username);
-                return RedirectToAction("index", "Home");
+                if (account.IsAdmin == false)
+                {
+                    return RedirectToAction("index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("index", "Accounts");
+                }
             }
             else
             {

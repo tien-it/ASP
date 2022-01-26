@@ -7,11 +7,11 @@
     {
         username = ViewBag.UserName;
         Id = ViewBag.id;
-        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>};
+        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>}
     }
     else
     {
-        @section Member{};
+        @section Member{}
     }
 
     if (ViewBag.id != null)
@@ -54,31 +54,53 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        <input type="checkbox" id="@item.Product.Id" name="@item.Quantity" value="@item.Product.Price" />
-                    </td>
-                    <td>
-                        <img src="~/img/@item.Product.Image" alt="Computer Man" style="width:72px;height:72px;">
-                    </td>
+            <tr>
+                <td>
+                    <input type="checkbox" id="@item.Product.Id" name="@item.Quantity" value="@item.Product.Price" />
+                </td>
+                <td>
+                    <img src="~/img/@item.Product.Image" alt="Computer Man" style="width:72px;height:72px;">
+                </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Product.SKU)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Product.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Quantity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Product.Price)
-                    </td>
-                    <td>
-                        <a asp-action="DeleteUser" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.SKU)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td>
+                    <div class="buttons_added">
+                        <a asp-action="Giam" asp-route-id="@item.Id" type="button"><input type="button" value="-"></a>
+                        <input value="@Html.DisplayFor(modelItem => item.Quantity)">
+                        <a asp-action="Tang" asp-route-id="@item.Id" type="button"><input type="button" value="+"></a>
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Price)
+                </td>
+                <td>
+                    <a asp-action="DeleteUser" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
 </div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="mb-3">Tổng Tiền: @ViewBag.CartsTotal.ToString("#,##0") VND</div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary "><a asp-controller="Carts" asp-action="Pay">Pay</a></button>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary "><a asp-controller="Carts" asp-action="clearCart">Clear</a></button>
+        </div>
+    </div>
+</div>
+
+
+@section productTypeName {
+    <select class="input-select" asp-items="ViewBag.ProductType">
+    </select>
+
+}
