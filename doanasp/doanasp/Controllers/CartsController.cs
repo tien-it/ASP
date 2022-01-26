@@ -60,36 +60,7 @@ namespace doanasp.Controllers
 
             return View(cart);
         }
-        //thêm giỏ hàng
-        public  IActionResult Add(int id)
-        {
-            return Add(id, 1);
-        }
-        [HttpPost]
-        public  IActionResult Add(int ProductId,int Quantity)
-        {
-            string username = HttpContext.Session.GetString("Username");
-            int id = _context.Accounts.FirstOrDefault(c => c.Username == username).id;
-            Cart cart = _context.Carts.FirstOrDefault(c => c.AccountId == id && c.ProductId == ProductId);
-            if( cart == null )
-            {
-                cart = new Cart();
-                cart.AccountId = id;
-                cart.ProductId = ProductId;
-                cart.Quantity = Quantity;
-                _context.Add(cart);
-
-            }
-            else
-            {
-                cart.Quantity += Quantity;
-
-            }
-            _context.SaveChanges();
-
-            return RedirectToAction(nameof(CartUser));
-        }
-
+        
         //thanh toán>>> 
 
         public IActionResult Pay()
@@ -109,7 +80,7 @@ namespace doanasp.Controllers
             
             if (checkStock(username))
             {
-                ViewBag.error = "có sản phẩm đã hết hàng , Vui lòng kiểm tra lại"
+                ViewBag.error = "có sản phẩm đã hết hàng , Vui lòng kiểm tra lại";
                 
 
             }

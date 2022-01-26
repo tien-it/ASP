@@ -197,5 +197,21 @@ namespace doanasp.Controllers
         {
             return _context.Products.Any(e => e.Id == id);
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Search(string keyword = "")
+        {
+            if (keyword == null)
+            {
+                keyword = "";
+            }
+            var productList = _context.Products.Where(prod => prod.Name.Contains(keyword) || prod.ProductType.TypeName.Contains(keyword));
+            if( productList is null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View(await productList.ToListAsync());
+        }
     }
 }

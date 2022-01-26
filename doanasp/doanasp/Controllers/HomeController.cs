@@ -34,10 +34,11 @@ namespace doanasp.Controllers
                 ViewBag.id = HttpContext.Session.GetInt32("id");
             }
             var lstProduct = _context.Products.Include(i=>i.ProductType);
-            ViewData["ProductType"] = new SelectList(_context.ProductTypes, "Id", "TypeName");
+     
             return View( await lstProduct.ToListAsync());
         }
-      
+        // tìm kiếm theo tên và loại
+       
 
         public IActionResult Privacy()
         {
