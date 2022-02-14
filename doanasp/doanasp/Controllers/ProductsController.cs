@@ -19,7 +19,34 @@ namespace doanasp.Controllers
         {
             _context = context;
         }
-
+        [HttpGet]
+        public async Task<IActionResult> SellProduct(int id)
+        {
+            var product = await _context.Products
+                .Include(p => p.ProductType)
+                .Include(p=>p.InvoiceDetails)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Price = _context.InvoiceDetails.Include(c => c.Product).Where(inv => inv.Product.Id == id).Sum(inv => inv.Product.Price * inv.Quantity);
+            ViewBag.Quantity = _context.InvoiceDetails.Include(c=>c.Product).Where(inv => inv.Product.Id == id).Sum(inv => inv.Quantity);
+            return View(product);
+        }
+        public async Task<IActionResult> SearchProducts(string keyword = "")
+        {
+            if (keyword == null)
+            {
+                keyword = "";
+            }
+            var productList = _context.Products.Where(prod => prod.Name.Contains(keyword) || prod.ProductType.TypeName.Contains(keyword));
+            if (productList is null)
+            {
+                return RedirectToAction("PD", "Products");
+            }
+            return View(await productList.ToListAsync());
+        }
         // GET: Products
         public async Task<IActionResult> Index()
         {

@@ -108,6 +108,7 @@ namespace doanasp.Controllers
             var shopContext = _context.Carts.Include(c => c.Account).Include(c => c.Product);
             return View(await shopContext.ToListAsync());
         }
+        //Cart User ----------------------------------------
         public async Task<IActionResult> CartUser()
         {
             string username = HttpContext.Session.GetString("Username");

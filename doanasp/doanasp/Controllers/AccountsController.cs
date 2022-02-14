@@ -64,7 +64,8 @@ namespace doanasp.Controllers
         // GET: Accounts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Accounts.ToListAsync());
+            ViewBag.Invoice = _context.Invoides;
+            return View(await _context.Accounts.Include(i=>i.Invoices).ToListAsync());
         }
 
         // GET: Accounts/Details/5

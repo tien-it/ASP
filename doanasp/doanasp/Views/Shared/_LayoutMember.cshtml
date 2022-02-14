@@ -67,9 +67,9 @@
                     <!-- SEARCH BAR -->
                     <div class="col-md-6">
                         <div class="header-search">
-                            <form>
+                            <form method="get" asp-controller="Products" asp-action="SearchProducts">
                                     @RenderSection("productTypeName")
-                                <input class="input" placeholder="Search here">
+                                <input name="keyword" class="input" placeholder="Search here">
                                 <button class="search-btn">Search</button>
                             </form>
                         </div>

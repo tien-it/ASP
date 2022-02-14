@@ -10,8 +10,8 @@ using doanasp.Data;
 namespace doanasp.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20220119072357_add-new")]
-    partial class addnew
+    [Migration("20220214071301_new")]
+    partial class @new
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -216,34 +216,6 @@ namespace doanasp.Migrations
                     b.ToTable("ProductTypes");
                 });
 
-            modelBuilder.Entity("doanasp.Models.Wish", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("price")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("wishes");
-                });
-
             modelBuilder.Entity("doanasp.Models.Cart", b =>
                 {
                     b.HasOne("doanasp.Models.Account", "Account")
@@ -288,21 +260,6 @@ namespace doanasp.Migrations
                     b.HasOne("doanasp.Models.ProductType", "ProductType")
                         .WithMany("Products")
                         .HasForeignKey("ProductTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("doanasp.Models.Wish", b =>
-                {
-                    b.HasOne("doanasp.Models.Account", "Account")
-                        .WithMany("wishes")
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("doanasp.Models.Product", "Product")
-                        .WithMany("wishes")
-                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

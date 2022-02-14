@@ -364,5 +364,13 @@ C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\doan
 C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Products\PD.cshtml.g.cs
 C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\ProductTypes\PDT.cshtml.g.cs
 C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Home\Checkout.cshtml.g.cs
-C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Home\Login.cshtml.g.cs
 C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Login.cshtml.g.cs
+C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\bin\Debug\netcoreapp3.1\NLog.dll
+C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\bin\Debug\netcoreapp3.1\NLog.Web.AspNetCore.dll
+C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Accounts\Login.cshtml.g.cs
+C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Carts\CartUser.cshtml.g.cs
+C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Carts\DeleteUser.cshtml.g.cs
+C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Products\Detail.cshtml.g.cs
+C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Products\SearchProducts.cshtml.g.cs
+C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Products\SellProduct.cshtml.g.cs
