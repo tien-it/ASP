@@ -148,6 +148,28 @@ namespace doanasp.Controllers
 
             return View(cart);
         }
+        
+        //thanh toán>>> 
+
+        public IActionResult Pay()
+        {
+            string username = HttpContext.Session.GetString("Username");
+            ViewBag.Account = _context.Accounts.Where(a => a.Username == username).FirstOrDefault();
+            ViewBag.CartTotal = _context.Carts.Include(c => c.Product).Include( c => c.Account).Where( c => c.Account.Username == username ).Sum(
+                c => c.Product.Price * c.Quantity);
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Pay( [Bind("ShippingAddress, ShippingPhone")]Invoice invoice)
+        {
+            string username = HttpContext.Session.GetString("Username");
+            
+            
+            if (checkStock(username))
+            {
+                ViewBag.error = "có sản phẩm đã hết hàng , Vui lòng kiểm tra lại";
+                
         //thêm giỏ hàng
         public  IActionResult Add(int id)
         {
@@ -177,7 +199,6 @@ namespace doanasp.Controllers
 
             return RedirectToAction(nameof(CartUser));
         }
-
         private bool checkStock(string username)
         {
             List <Cart>  cart = _context.Carts.Include(c => c.Product).Include(c => c.Account).Where(c => c.Account.Username == username).ToList();
