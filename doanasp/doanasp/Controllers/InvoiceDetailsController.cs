@@ -23,9 +23,9 @@ namespace doanasp.Controllers
         public async Task<IActionResult> Index()
         {
             var shopContext = _context.InvoiceDetails.Include(i => i.Invoice).Include(i => i.Product);
-            if (HttpContext.Request.Cookies.ContainsKey("Username"))
+            if (HttpContext.Session.Keys.Contains("Username"))
             {
-                ViewBag.UserName = HttpContext.Request.Cookies["Username"].ToString();
+                ViewBag.Day = _context.Invoides.Where(i => i.IssueDate.Day == DateTime.Now.Day);
             }
             return View(await shopContext.ToListAsync());
         }
