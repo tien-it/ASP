@@ -31,9 +31,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Fullname)
             </th>
-            <th>
-                Price
-            </th>
+            <th>price</th>
             <th>
                 @Html.DisplayNameFor(model => model.IsAdmin)
             </th>
@@ -71,7 +69,7 @@
                 @Html.DisplayFor(modelItem => item.Fullname)
             </td>
             <td>
-                @invoices.Where(i => i.Account.id == i.AccountId).Sum(i=>i.Total)
+                @invoices.Where(i => i.AccountId == item.id).Sum(i=>i.Total)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsAdmin)

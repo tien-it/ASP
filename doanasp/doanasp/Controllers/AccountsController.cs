@@ -64,8 +64,17 @@ namespace doanasp.Controllers
         // GET: Accounts
         public async Task<IActionResult> Index()
         {
-            ViewBag.Invoice = _context.Invoides;
-            return View(await _context.Accounts.Include(i=>i.Invoices).ToListAsync());
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
+            ViewBag.Invoice = _context.Invoides.Include(p => p.Account).ToList();
+            var shopContext = _context.Accounts.Include(p => p.Invoices);
+            return View(await shopContext.ToListAsync());
         }
 
         // GET: Accounts/Details/5
