@@ -166,5 +166,7 @@ namespace doanasp.Controllers
         {
             return _context.InvoiceDetails.Any(e => e.id == id);
         }
+       
+
     }
 }

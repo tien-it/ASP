@@ -7,6 +7,8 @@ using doanasp.Data;
 using doanasp.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 
 namespace doanasp.Controllers
@@ -14,13 +16,14 @@ namespace doanasp.Controllers
     public class AccountsController : Controller
     {
         private readonly ShopContext _context;
-
+        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ILogger<AccountsController> _logger;
 
-        public AccountsController(ILogger<AccountsController> logger,ShopContext context)
+        public AccountsController(ILogger<AccountsController> logger,ShopContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _logger = logger;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         //GET: Register
@@ -137,29 +140,31 @@ namespace doanasp.Controllers
             }
 
         }
-        //public async Task<IActionResult> LoginSesstion()
-        //{
-        //    var password = HttpContext.Session.GetString("Password");
-        //    var username = HttpContext.Session.GetString("Username");
-        //    var account = _context.Accounts.Where(a => a.Username == username && a.Password == password).FirstOrDefault();
-        //    if (account != null)
-        //    {
-        //        return RedirectToAction("index", "Home");
-        //    }
-        //    else
-        //    {
-        //        ViewBag.ErrorMessage = "Đăng nhập thất bại";
-        //        return View();
-        //    }
-        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,Avatar,Status")] Account account)
-        {
+        public async Task<IActionResult> Create([Bind("id,Username,Password,Email,Phone,Address,Fullname, IsAdmin, ImageFile,Avatar,Status")] Account account)
+        { 
+         
             if (ModelState.IsValid)
             {
                 _context.Add(account);
                 await _context.SaveChangesAsync();
+                if (account.ImageFile != null)
+                {
+                    var filename = account.id + Path.GetExtension(account.ImageFile.FileName);
+                    var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "user");
+                    var filePath = Path.Combine(uploadPath, filename);
+
+                    using (FileStream fs = System.IO.File.Create(filePath))
+                    {
+                        account.ImageFile.CopyTo(fs);
+                        fs.Flush();
+                    }
+                    account.Avatar = filename;
+
+                    _context.Accounts.Update(account);
+                    await _context.SaveChangesAsync();
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(account);
@@ -186,8 +191,21 @@ namespace doanasp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,Avatar,Status")] Account account)
+        public async Task<IActionResult> Edit(int id, [Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,ImageFile, Avatar,Status")] Account account)
         {
+            //if (account.ImageFile != null)
+            //{
+            //    var filename = account.id+"abc"+ Path.GetExtension(account.ImageFile.FileName);
+            //    var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "user");
+            //    var filePath = Path.Combine(uploadPath, filename);
+
+            //    using (FileStream fs = System.IO.File.Create(filePath))
+            //    {
+            //        account.ImageFile.CopyTo(fs);
+            //        fs.Flush();
+            //    }
+            //    account.Avatar = filename;
+            //}
             if (id != account.id)
             {
                 return NotFound();
@@ -195,10 +213,13 @@ namespace doanasp.Controllers
 
             if (ModelState.IsValid)
             {
+                
+
                 try
                 {
                     _context.Update(account);
                     await _context.SaveChangesAsync();
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {

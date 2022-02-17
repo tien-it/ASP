@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
 
 
 namespace doanasp.Models
@@ -34,6 +35,8 @@ namespace doanasp.Models
         public string Fullname { get; set; }
         [DisplayName("Is Admin")]
         public bool IsAdmin { get; set; }
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
         [DisplayName("Avatar")]
         [DataType(DataType.ImageUrl)]
         public string Avatar { get; set; }

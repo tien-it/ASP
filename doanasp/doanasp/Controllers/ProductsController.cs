@@ -34,6 +34,7 @@ namespace doanasp.Controllers
             ViewBag.Quantity = _context.InvoiceDetails.Include(c=>c.Product).Where(inv => inv.Product.Id == id).Sum(inv => inv.Quantity);
             return View(product);
         }
+        //tìm kiếm
         public async Task<IActionResult> SearchProducts(string keyword = "")
         {
             if (keyword == null)

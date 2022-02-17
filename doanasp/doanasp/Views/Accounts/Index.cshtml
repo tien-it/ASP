@@ -66,16 +66,13 @@
                 @Html.DisplayFor(modelItem => item.Fullname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Fullname)
-            </td>
-            <td>
                 @invoices.Where(i => i.AccountId == item.id).Sum(i=>i.Total)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsAdmin)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Avatar)
+                <img style=" max-width:100px ; max-height:100px" src="~/img/user/@Html.DisplayFor(modelItem => item.Avatar)" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
