@@ -48,6 +48,77 @@ namespace doanasp.Controllers
 
             return View(invoice);
         }
+        //search invoice by date
+        public async Task<IActionResult> FindDMY(String value ="")
+        {
+            if (value == null)
+            {
+                return NotFound();
+            }
+            DateTime temp = DateTime.Parse(value);
+            var invoice = await _context.Invoides
+                .Include(i => i.Account)
+                .Where(I => I.IssueDate.Year == temp.Year)
+                .Where(I => I.IssueDate.Month == temp.Month)
+                .Where(I => I.IssueDate.Day == temp.Day)
+                .ToListAsync();
+            if (invoice == null)
+            {
+                return NotFound(); 
+            }
+            return View(invoice);
+        }
+
+
+
+        // advanced search
+        public IActionResult SearchAdvanced()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> Result( string Code ="", /*String IssueDate ="", */string ShippingAddress ="", string ShippingPhone ="", int Total =0, int AccountId =0, bool Status =false)
+        {
+
+            var invoices = await _context.Invoides.ToListAsync();
+            if (Code != "")
+            {
+                invoices = invoices.Where(i => i.Code == Code).ToList();
+            }
+
+            //if (IssueDate != null)
+            //{
+            //    DateTime temp = DateTime.Parse(IssueDate);
+            //    invoices =  invoices
+            //       .Where(I => I.IssueDate.Date == temp.Date)
+            //       .ToList();
+            //}
+
+            if (ShippingAddress != null)
+            {
+                invoices = invoices.Where(i => i.ShippingAddress.Contains(ShippingAddress)).ToList();
+            }
+
+            if (ShippingPhone != null)
+            {
+                invoices = invoices.Where(i => i.ShippingPhone.Contains(ShippingPhone)).ToList();
+            }
+            if (Total != 0)
+            {
+                invoices = invoices.Where(i => i.Total == Total).ToList();
+            }
+            if (AccountId != 0)
+            {
+                invoices = invoices.Where(i => i.AccountId == AccountId).ToList();
+            }
+            if (Status != false)
+            {
+                invoices = invoices.Where(i => i.Status == Status).ToList();
+            }
+
+            return View(invoices);
+        }
+
 
         // GET: Invoices/Create
         public IActionResult Create()

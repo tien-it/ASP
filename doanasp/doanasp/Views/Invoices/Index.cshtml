@@ -9,6 +9,18 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<div class="col-md-6">
+    <div class="header-search">
+        <form method="get">
+            <input class="input" name="value" placeholder="Search here">
+            <button asp-controller="Invoices" asp-action="FindDMY" class="search-btn">Search</button>
+        </form>
+    </div>
+    <form method="get">
+        <button asp-controller="Invoices" asp-action="SearchAdvanced" class="search-btn">SearchHigt</button>
+    </form>
+    
+</div>
 <table class="table">
     <thead>
         <tr>
