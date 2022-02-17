@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
-
+using System;
 
 namespace doanasp.Controllers
 {
@@ -142,16 +142,17 @@ namespace doanasp.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Username,Password,Email,Phone,Address,Fullname, IsAdmin, ImageFile,Avatar,Status")] Account account)
+        public async Task<IActionResult> Create([Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,ImageFile,Avatar,Status")] Account account)
         { 
          
             if (ModelState.IsValid)
             {
                 _context.Add(account);
                 await _context.SaveChangesAsync();
+
                 if (account.ImageFile != null)
                 {
-                    var filename = account.id + Path.GetExtension(account.ImageFile.FileName);
+                    var filename = Guid.NewGuid() + Path.GetExtension(account.ImageFile.FileName);
                     var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "user");
                     var filePath = Path.Combine(uploadPath, filename);
 
@@ -165,6 +166,7 @@ namespace doanasp.Controllers
                     _context.Accounts.Update(account);
                     await _context.SaveChangesAsync();
                 }
+
                 return RedirectToAction(nameof(Index));
             }
             return View(account);
@@ -191,26 +193,27 @@ namespace doanasp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,ImageFile, Avatar,Status")] Account account)
+        public async Task<IActionResult> Edit(int id, [Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,ImageFile,Avatar,Status")] Account account)
         {
-            //if (account.ImageFile != null)
-            //{
-            //    var filename = account.id+"abc"+ Path.GetExtension(account.ImageFile.FileName);
-            //    var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "user");
-            //    var filePath = Path.Combine(uploadPath, filename);
-
-            //    using (FileStream fs = System.IO.File.Create(filePath))
-            //    {
-            //        account.ImageFile.CopyTo(fs);
-            //        fs.Flush();
-            //    }
-            //    account.Avatar = filename;
-            //}
             if (id != account.id)
             {
                 return NotFound();
             }
 
+            if (account.ImageFile != null)
+            {
+                var filename = Guid.NewGuid() + Path.GetExtension(account.ImageFile.FileName);
+                var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "user");
+                var filePath = Path.Combine(uploadPath, filename);
+
+                using (FileStream fs = System.IO.File.Create(filePath))
+                {
+                    account.ImageFile.CopyTo(fs);
+                    fs.Flush();
+                }
+                account.Avatar = filename;
+            }
+            
             if (ModelState.IsValid)
             {
                 
