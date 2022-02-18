@@ -67,7 +67,7 @@
                 @Html.DisplayFor(modelItem => item.ProductType.TypeName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
+                <img style=" max-width:200px ; max-height:200px" src="~/img/product/@Html.DisplayFor(modelItem => item.Image)" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)

@@ -8,16 +8,19 @@ using Microsoft.EntityFrameworkCore;
 using doanasp.Data;
 using doanasp.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace doanasp.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly ShopContext _context;
-
-        public ProductsController(ShopContext context)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public ProductsController(ShopContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
         [HttpGet]
         public async Task<IActionResult> SellProduct(int id)
@@ -126,12 +129,28 @@ namespace doanasp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SKU,Name,Author,Description,Price,Stock,ProductTypeId,Image,Status")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,SKU,Name,Author,Description,Price,Stock,ProductTypeId,ImageFile,Image,Status")] Product product)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(product);
                 await _context.SaveChangesAsync();
+                if (product.ImageFile != null)
+                {
+                    var filename = Guid.NewGuid() + Path.GetExtension(product.ImageFile.FileName);
+                    var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "product");
+                    var filePath = Path.Combine(uploadPath, filename);
+
+                    using (FileStream fs = System.IO.File.Create(filePath))
+                    {
+                        product.ImageFile.CopyTo(fs);
+                        fs.Flush();
+                    }
+                    product.Image = filename;
+
+                    _context.Products.Update(product);
+                    await _context.SaveChangesAsync();
+                }
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "Id", "TypeName", product.ProductTypeId);
@@ -160,13 +179,28 @@ namespace doanasp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,SKU,Name,Author,Description,Price,Stock,ProductTypeId,Image,Status")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,SKU,Name,Author,Description,Price,Stock,ProductTypeId,ImageFile,Image,Status")] Product product)
         {
             if (id != product.Id)
             {
                 return NotFound();
             }
+            if (product.ImageFile != null)
+            {
+                var filename = Guid.NewGuid() + Path.GetExtension(product.ImageFile.FileName);
+                var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "product");
+                var filePath = Path.Combine(uploadPath, filename);
 
+                using (FileStream fs = System.IO.File.Create(filePath))
+                {
+                    product.ImageFile.CopyTo(fs);
+                    fs.Flush();
+                }
+                product.Image = filename;
+
+                _context.Products.Update(product);
+                await _context.SaveChangesAsync();
+            }
             if (ModelState.IsValid)
             {
                 try
