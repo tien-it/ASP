@@ -1,53 +1,67 @@
 ﻿@model IEnumerable<doanasp.Models.InvoiceDetail>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Index"; Layout = "_LayoutAdminIndex";
+    string username = "anonymous";
+    if (ViewBag.UserName != null)
+    {
+        username = ViewBag.UserName;
+        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>}
+    }
+    else
+    {
+        @section Member{}
+    }
 }
+@section name{@username}
+<div class="col-sm-1"></div>
+<div class="col-sm-10">
+    <h1>Index</h1>
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UnitPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Invoice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnitPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Invoice.id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product.Author)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnitPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Invoice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Invoice.id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Author)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.id" class="btn btn-primary">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.id" class="btn btn-primary">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.id" class="btn btn-primary">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>

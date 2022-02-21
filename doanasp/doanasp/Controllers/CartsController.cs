@@ -37,6 +37,7 @@ namespace doanasp.Controllers
             invoice.Code = now.ToString("yyMMddhhmmss");
             invoice.AccountId = _context.Accounts.FirstOrDefault(a => a.Username == username).id;
             invoice.IssueDate = now;
+            invoice.Status = false;
             invoice.ShippingPhone = acc.Phone;
             invoice.ShippingAddress = acc.Address;
             invoice.Total = _context.Carts.Include(c => c.Account).Include(c => c.Product)
@@ -81,8 +82,15 @@ namespace doanasp.Controllers
         {
             string username = HttpContext.Session.GetString("Username");
             int ids = _context.Accounts.FirstOrDefault(c => c.Username == username).id;
-            Cart cart = _context.Carts.FirstOrDefault(c => c.Id == id&& c.AccountId==ids);
-            cart.Quantity += 1 ;
+            Cart cart = _context.Carts.Include(c=>c.Product).FirstOrDefault(c => c.Id == id&& c.AccountId==ids);
+            if (cart.Product.Stock<=cart.Quantity)
+            {
+                cart.Quantity += 0;
+            }
+            else
+            {
+                cart.Quantity+=1;
+            }
             _context.SaveChanges();
             return RedirectToAction("CartUser", "Carts");
         }
@@ -105,6 +113,14 @@ namespace doanasp.Controllers
             // GET: Carts
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             var shopContext = _context.Carts.Include(c => c.Account).Include(c => c.Product);
             return View(await shopContext.ToListAsync());
         }
@@ -132,6 +148,14 @@ namespace doanasp.Controllers
         // GET: Carts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -157,13 +181,18 @@ namespace doanasp.Controllers
         {
             return Add(id, 1);
         }
+        public IActionResult Added(int id,int quantity)
+        {
+            return Add(id, quantity);
+        }
         [HttpPost]
         public  IActionResult Add(int ProductId,int Quantity)
         {
             string username = HttpContext.Session.GetString("Username");
             int id = _context.Accounts.FirstOrDefault(c => c.Username == username).id;
             Cart cart = _context.Carts.FirstOrDefault(c => c.AccountId == id && c.ProductId == ProductId);
-            if( cart == null )
+            int qtt = _context.Products.Find(ProductId).Stock;
+            if ( cart == null )
             {
                 cart = new Cart();
                 cart.AccountId = id;
@@ -174,7 +203,14 @@ namespace doanasp.Controllers
             }
             else
             {
-                cart.Quantity += Quantity;
+                if (Quantity + cart.Quantity > qtt)
+                {
+                    cart.Quantity = qtt;
+                }
+                else
+                {
+                    cart.Quantity += Quantity;
+                }
 
             }
             _context.SaveChanges();
@@ -197,6 +233,14 @@ namespace doanasp.Controllers
         // GET: Carts/Create
         public IActionResult Create()
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Username");
             ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
             return View();
@@ -209,6 +253,14 @@ namespace doanasp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,AccountId,ProductId,Quantity")] Cart cart)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(cart);
@@ -223,6 +275,14 @@ namespace doanasp.Controllers
         // GET: Carts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -245,6 +305,14 @@ namespace doanasp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,AccountId,ProductId,Quantity")] Cart cart)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (id != cart.Id)
             {
                 return NotFound();
@@ -278,6 +346,14 @@ namespace doanasp.Controllers
         // GET: Carts/Delete/5
         public async Task<IActionResult> DeleteUser(int? id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -300,6 +376,14 @@ namespace doanasp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteUserConfirmed(int id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             var cart = await _context.Carts.FindAsync(id);
             _context.Carts.Remove(cart);
             await _context.SaveChangesAsync();
@@ -311,6 +395,14 @@ namespace doanasp.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -337,6 +429,14 @@ namespace doanasp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             var cart = await _context.Carts.FindAsync(id);
             _context.Carts.Remove(cart);
             await _context.SaveChangesAsync();

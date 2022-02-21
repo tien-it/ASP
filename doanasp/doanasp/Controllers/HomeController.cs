@@ -33,12 +33,27 @@ namespace doanasp.Controllers
             {
                 ViewBag.id = HttpContext.Session.GetInt32("id");
             }
-            var lstProduct = _context.Products.Include(i=>i.ProductType);
+            var inv = _context.InvoiceDetails.Include(i => i.Product).Where(i=>i.Product.Id==i.ProductId).Sum(i => i.Quantity);
+            var lstProduct = _context.Products.Include(i=>i.InvoiceDetails).Include(i => i.ProductType).OrderByDescending(prd=>inv).Take(5);
      
             return View( await lstProduct.ToListAsync());
         }
+        public async Task<IActionResult> HighPrice()
+        {
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            var lstProduct = _context.Products.Include(i => i.ProductType).Take(5).OrderByDescending(prd=>prd.Price);
+
+            return View(await lstProduct.ToListAsync());
+        }
         // tìm kiếm theo tên và loại
-       
+
 
         public IActionResult Privacy()
         {

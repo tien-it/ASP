@@ -1,139 +1,165 @@
-﻿<!DOCTYPE HTML>
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>@ViewData["Title"] - doanasp</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="~/assets/css/main.css" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Electro - HTML Ecommerce Template</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="~/css/bootstrap.min.css" />
+
+    <!-- Slick -->
+    <link type="text/css" rel="stylesheet" href="~/css/slick.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/slick-theme.css" />
+
+    <!-- nouislider -->
+    <link type="text/css" rel="stylesheet" href="~/css/nouislider.min.css" />
+
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="~/css/style.css" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
 </head>
-<body class="homepage is-preload">
-    <div id="page-wrapper">
-
-        <!-- Header -->
-        <section id="header" class="wrapper">
-
-            <!-- Logo -->
-            <div id="logo">
-                <h1>Nội Thất Nhà Tui</h1>
-            </div>
-
-            <!-- Nav -->
-            <nav id="nav">
-                <ul>
-                    <li class="current"><a asp-controller="Home" asp-action="Index">Trang Chủ</a></li>
-                    <li><a asp-controller="HoaDons" asp-action="Index">Hóa Đơn</a></li>
-                    <li><a asp-controller="accounts" asp-action="Index">Tài Khoản</a></li>
-                    <li><a asp-controller="sanphams" asp-action="Index">Sản Phẩm</a></li>
-                    <li><a asp-controller="Loaisanphams" asp-action="Index">Danh Mục Sản Phẩm</a></li>
-                    <li><a asp-controller="ChiTietHoaDons" asp-action="Index">Chi Tiết Đơn Hàng</a></li>
-                    <li><a asp-controller="GioHangs" asp-action="Index">Giỏ Hàng</a></li>
-                </ul>
-            </nav>
-
-        </section>
-
-        <!-- Main -->
-        <section id="main" class="wrapper style2">
-            <div class="container" >@RenderBody() </div>
-        </section>
-        <!-- Footer -->
-        <section id="footer" class="wrapper">
+<body>
+    <!-- HEADER -->
+    <header>
+        <!-- TOP HEADER -->
+        <div id="top-header">
             <div class="container">
+                <ul class="header-links pull-right">
+                    <li><a asp-controller="Accounts" asp-action="Login"><i class="fa fa-user-o"></i>@RenderSection("name")</a></li>
+                    @RenderSection("Member")
+                </ul>
+            </div>
+        </div>
+        <!-- /TOP HEADER -->
+        <!-- MAIN HEADER -->
+        <div id="header">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
                 <div class="row">
-                    <div class="col-6 col-12-medium">
-
-                        <!-- Contact Form -->
-                        <section>
-                            <form method="post" action="#">
-                                <div class="row gtr-50">
-                                    <div class="col-6 col-12-small">
-                                        <input type="text" name="name" id="contact-name" placeholder="Name" />
-                                    </div>
-                                    <div class="col-6 col-12-small">
-                                        <input type="text" name="email" id="contact-email" placeholder="Email" />
-                                    </div>
-                                    <div class="col-12">
-                                        <textarea name="message" id="contact-message" placeholder="Message" rows="4"></textarea>
-                                    </div>
-                                    <div class="col-12">
-                                        <ul class="actions">
-                                            <li><input type="submit" class="style1" value="Send" /></li>
-                                            <li><input type="reset" class="style2" value="Reset" /></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </form>
-                        </section>
-
+                    <!-- LOGO -->
+                    <div class="col-md-3">
+                        <div class="header-logo">
+                            <a href="#" class="logo">
+                                <img src="./img/logo.png" alt="">
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-6 col-12-medium">
-
-                        <!-- Contact -->
-                        <section class="feature-list small">
-                            <div class="row">
-                                <div class="col-6 col-12-small">
-                                    <section>
-                                        <h3 class="icon solid fa-home">Mailing Address</h3>
-                                        <p>
-                                           Cao Đẳng Kỹ Thuật Cao Thắng<br />
-                                            67 Huỳnh Thúc Kháng<br />
-                                            Đa Kao, Quận 1
-                                        </p>
-                                    </section>
-                                </div>
-                                <div class="col-6 col-12-small">
-                                    <section>
-                                        <h3 class="icon solid fa-comment">Social</h3>
-                                        <p>
-                                            <a href="#">-corp</a>NHÀ TUI.CoLtd<br />
-                                            <a href="#">linkedin.com/tiendeptrai</a><br />
-                                            <a href="#">facebook.com/vantien1308</a>
-                                        </p>
-                                    </section>
-                                </div>
-                                <div class="col-6 col-12-small">
-                                    <section>
-                                        <h3 class="icon solid fa-envelope">Email</h3>
-                                        <p>
-                                            <a href="#">caothang.edu.vn</a>
-                                        </p>
-                                    </section>
-                                </div>
-                                <div class="col-6 col-12-small">
-                                    <section>
-                                        <h3 class="icon solid fa-phone">Phone</h3>
-                                        <p>
-                                            (84) 0909898999
-                                        </p>
-                                    </section>
-                                </div>
-                            </div>
-                        </section>
-
-                    </div>
+                    <!-- /LOGO -->
+                    <!-- SEARCH BAR -->
+                    <!-- /SEARCH BAR -->
+                    <!-- ACCOUNT -->
+                    <!-- /ACCOUNT -->
                 </div>
-                <div id="copyright">
-                    <ul>
-                        <li>&copy; Nhà Tui Đẹp</li>
-                    </ul>
+                <!-- row -->
+            </div>
+            <!-- container -->
+        </div>
+        <!-- /MAIN HEADER -->
+    </header>
+    <div class="container">
+        <!-- responsive-nav -->
+        <div id="responsive-nav">
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav">
+                <li><a asp-controller="Accounts" asp-action="index">Accounts</a></li>
+                <li><a asp-controller="Products" asp-action="index">Product</a></li>
+                <li><a asp-controller="ProductTypes" asp-action="index">ProductTypes</a></li>
+                <li><a asp-controller="Carts" asp-action="index">Carts</a></li>
+                <li><a asp-controller="Invoices" asp-action="index">Invoices</a></li>
+                <li><a asp-controller="InvoiceDetails" asp-action="index">InvoiceDetails</a></li>
+            </ul>
+            <!-- /NAV -->
+        </div>
+        <!-- /responsive-nav -->
+    </div>
+    <!-- /HEADER -->
+    <!-- NAVIGATION -->
+    @RenderBody()
+    <!-- /SECTION -->
+    <!-- NEWSLETTER -->
+    <div id="newsletter" class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+
                 </div>
             </div>
-        </section>
-
+            <!-- /row -->
+        </div>
+        <!-- /container -->
     </div>
-
-    <!-- Scripts -->
-    <script src="~/assets/js/jquery.min.js"></script>
-    <script src="~/assets/js/jquery.dropotron.min.js"></script>
-    <script src="~/assets/js/browser.min.js"></script>
-    <script src="~/assets/js/breakpoints.min.js"></script>
-    <script src="~/assets/js/util.js"></script>
-    <script src="~/assets/js/main.js"></script>
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-
+    <!-- /NEWSLETTER -->
+    <!-- FOOTER -->
+    <footer id="footer">
+        <!-- top footer -->
+        <div class="section">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">About Us</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+                            <ul class="footer-links">
+                                <li><a href="https://www.google.com/maps/place/Tr%C6%B0%E1%BB%9Dng+Cao+%C4%91%E1%BA%B3ng+K%E1%BB%B9+thu%E1%BA%ADt+Cao+Th%E1%BA%AFng/10.771595,106.6991629,17z/data=!3m1!4b1!4m5!3m4!1s0x31752f40a3b49e59:0xa1bd14e483a602db!8m2!3d10.771595!4d106.7013516?hl=vi-VN"><i class="fa fa-map-marker"></i>Cao Thang Technical College</a></li>
+                                <li><a href="https://www.facebook.com/toanle0120"><i class="fa fa-envelope-o"></i>Facebook Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /top footer -->
+        <!-- bottom footer -->
+        <div id="bottom-footer" class="section">
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <span class="copyright">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </span>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /bottom footer -->
+    </footer>
+    <!-- /FOOTER -->
+    <!-- jQuery Plugins -->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/slick.min.js"></script>
+    <script src="~/js/nouislider.min.js"></script>
+    <script src="~/js/jquery.zoom.min.js"></script>
+    <script src="~/js/main.js"></script>
 </body>
 </html>

@@ -19,6 +19,18 @@ namespace doanasp.Controllers
         {
             _context = context;
         }
+        public IActionResult TopSelling()
+        {
+            var prd = (from p in _context.Products
+                       let totalQuantity = (from op in _context.Products
+                                            join o in _context.InvoiceDetails on op.Id equals o.ProductId
+                                            where o.InvoiceId==o.Invoice.id && o.Invoice.IssueDate.Month >= DateTime.Now.Month-1 && o.Invoice.IssueDate.Month <= DateTime.Now.Month
+                                            select o.Quantity).Sum()
+                       where totalQuantity > 0
+                       orderby totalQuantity descending
+                       select p).Take(10);
+            return View(prd.ToList());
+        }
         [HttpGet]
         public async Task<IActionResult> SellProduct(int id)
         {
@@ -40,15 +52,28 @@ namespace doanasp.Controllers
             {
                 keyword = "";
             }
-            var productList = _context.Products.Where(prod => prod.Name.Contains(keyword) || prod.ProductType.TypeName.Contains(keyword));
+            var productList = _context.Products.Where(prod => prod.Name.Contains(keyword) || prod.ProductType.TypeName.Contains(keyword)||prod.SKU.Contains(keyword));
             if (productList is null)
             {
                 return RedirectToAction("PD", "Products");
             }
             return View(await productList.ToListAsync());
         }
+        public async Task<IActionResult> QuantitySearch(int quantity,string ten,string hang)
+        {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
+            var productList = _context.Products.Where(prd=>prd.Stock <= quantity&&prd.Name==ten&&prd.Author == hang);
+            return View(await productList.ToListAsync());
+        }
         // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? quantity)
         {
             if (HttpContext.Session.Keys.Contains("id"))
             {
@@ -89,14 +114,31 @@ namespace doanasp.Controllers
             }
             return View(productDetail);
         }
-        public async Task<IActionResult> PD()
+        public async Task<IActionResult> PD(int page)
         {
-            var shopContext = _context.Products.Include(p => p.ProductType);
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            ViewBag.page = page;
+            var shopContext = _context.Products.Include(p => p.ProductType).Skip((page - 1) * 15).Take(15);
             return View(await shopContext.ToListAsync());
         }
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -116,6 +158,14 @@ namespace doanasp.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "Id", "TypeName");
             return View();
         }
@@ -127,6 +177,14 @@ namespace doanasp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,SKU,Name,Author,Description,Price,Stock,ProductTypeId,Image,Status")] Product product)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(product);
@@ -140,6 +198,14 @@ namespace doanasp.Controllers
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -161,6 +227,14 @@ namespace doanasp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,SKU,Name,Author,Description,Price,Stock,ProductTypeId,Image,Status")] Product product)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (id != product.Id)
             {
                 return NotFound();
@@ -193,6 +267,14 @@ namespace doanasp.Controllers
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -214,6 +296,14 @@ namespace doanasp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             var product = await _context.Products.FindAsync(id);
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
@@ -222,6 +312,14 @@ namespace doanasp.Controllers
 
         private bool ProductExists(int id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             return _context.Products.Any(e => e.Id == id);
         }
 
@@ -229,6 +327,14 @@ namespace doanasp.Controllers
         [HttpGet]
         public async Task<IActionResult> Search(string keyword = "")
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (keyword == null)
             {
                 keyword = "";
