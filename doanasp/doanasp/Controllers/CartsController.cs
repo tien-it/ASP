@@ -172,11 +172,7 @@ namespace doanasp.Controllers
 
             return View(cart);
         }
-        
-        //thanh toán>>> 
-
-        
-        //thêm giỏ hàng
+        // thêm giỏ hàng
         public  IActionResult Add(int id)
         {
             return Add(id, 1);
@@ -188,8 +184,14 @@ namespace doanasp.Controllers
         [HttpPost]
         public  IActionResult Add(int ProductId,int Quantity)
         {
+            
             string username = HttpContext.Session.GetString("Username");
+
+            if (username is null) {
+                return RedirectToAction("index","Home");
+            } ;
             int id = _context.Accounts.FirstOrDefault(c => c.Username == username).id;
+
             Cart cart = _context.Carts.FirstOrDefault(c => c.AccountId == id && c.ProductId == ProductId);
             int qtt = _context.Products.Find(ProductId).Stock;
             if ( cart == null )
@@ -217,6 +219,8 @@ namespace doanasp.Controllers
 
             return RedirectToAction(nameof(CartUser));
         }
+        // <<< end thêm giỏ hàng
+        // kiểm tra số lượng giỏ hàng
         private bool checkStock(string username)
         {
             List <Cart>  cart = _context.Carts.Include(c => c.Product).Include(c => c.Account).Where(c => c.Account.Username == username).ToList();
@@ -229,7 +233,7 @@ namespace doanasp.Controllers
             }
             return true;
         }
-        //<<<end thanh toán
+        //<<<end kiểm tra số lượng
         // GET: Carts/Create
         public IActionResult Create()
         {

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
 namespace doanasp.Models
 {
     public class Product
@@ -40,7 +42,8 @@ namespace doanasp.Models
         public int ProductTypeId { get; set; }
         [DisplayName("ProductType")]
         public ProductType ProductType { get; set; }
-
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
         [DisplayName("Image")]
         [DataType(DataType.ImageUrl)]
         public string Image { get; set; }
