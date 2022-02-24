@@ -100,6 +100,14 @@ namespace doanasp.Controllers
         // GET: Accounts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -118,6 +126,14 @@ namespace doanasp.Controllers
         // GET: Accounts/Create
         public IActionResult Create()
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             return View();
         }
         public async Task<IActionResult> EditProfile()
@@ -184,27 +200,32 @@ namespace doanasp.Controllers
                 HttpContext.Session.SetInt32("id", account.id);
                 HttpContext.Session.SetString("Password", account.Password);
                 HttpContext.Session.SetString("Username", account.Username);
-                if (account.IsAdmin == false)
+                if (account.IsAdmin == false && account.Status==true)
                 {
                     return RedirectToAction("index", "Home");
                 }
                 else
+                if(account.Status==true)
                 {
                     return RedirectToAction("index", "Accounts");
                 }
             }
-            else
-            {
                 ViewBag.ErrorMessage = "Đăng nhập thất bại";
                 return View();
-            }
 
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,ImageFile,Avatar,Status")] Account account)
-        { 
-         
+        public async Task<IActionResult> Create([Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,Avatar,Status")] Account account)
+        {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(account);
@@ -235,6 +256,14 @@ namespace doanasp.Controllers
         // GET: Accounts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -255,6 +284,14 @@ namespace doanasp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,ImageFile,Avatar,Status")] Account account)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (id != account.id)
             {
                 return NotFound();
@@ -303,6 +340,14 @@ namespace doanasp.Controllers
         // GET: Accounts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -323,6 +368,14 @@ namespace doanasp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             var account = await _context.Accounts.FindAsync(id);
             _context.Accounts.Remove(account);
             await _context.SaveChangesAsync();
@@ -331,6 +384,14 @@ namespace doanasp.Controllers
 
         private bool AccountExists(int id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             return _context.Accounts.Any(e => e.id == id);
         }
     }

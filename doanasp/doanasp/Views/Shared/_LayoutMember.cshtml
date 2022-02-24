@@ -42,9 +42,8 @@
         <div id="top-header">
             <div class="container">
                 <ul class="header-links pull-right">
-                    <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
                     <li><a asp-controller="Accounts" asp-action="Login"><i class="fa fa-user-o"></i>@RenderSection("name")</a></li>
-                   @RenderSection("Member")
+                    @RenderSection("Member")
                 </ul>
             </div>
         </div>
@@ -67,9 +66,9 @@
                     <!-- SEARCH BAR -->
                     <div class="col-md-6">
                         <div class="header-search">
-                            <form   method="get">
-                            <input  class="input" name="keyword" placeholder="Search here">
-                            <button asp-controller="Products" asp-action="Search"  class="search-btn">Search</button>
+                            <form method="get">
+                                <input class="input" name="keyword" placeholder="Search here">
+                                <button asp-controller="Products" asp-action="Search" class="search-btn">Search</button>
                             </form>
                         </div>
                     </div>
@@ -79,16 +78,12 @@
                         <div class="header-ctn">
                             <!-- Wishlist -->
                             <div>
-                                <a asp-controller="Wishes" asp-action="WishUser" asp-route-id ="@RenderSection("idWish")">
-                                    <i class="fa fa-heart-o"></i>
-                                    <span>Your Wishlist</span>
-                                    @*<div class="qty">2</div>*@
-                                </a>
+                                <a asp-controller="Wishes" asp-action="WishUser" asp-route-id="@RenderSection("idWish")"></a>
                             </div>
                             <!-- /Wishlist -->
                             <!-- Cart -->
                             <div>
-                                <a asp-controller="Carts" asp-action="CartUser" asp-route-id ="@RenderSection("id")" >
+                                <a asp-controller="Carts" asp-action="CartUser" asp-route-id="@RenderSection("id")">
                                     <i class="fa fa-shopping-cart"></i>
                                     <span>Your Cart</span>
                                 </a>
@@ -118,7 +113,7 @@
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
                 <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                <li><a asp-controller="Products" asp-action="PD">Product</a></li>
+                <li><a asp-controller="Products" asp-action="PD" asp-route-page="1">Product</a></li>
             </ul>
             <!-- /NAV -->
         </div>
@@ -135,27 +130,7 @@
             <!-- row -->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="newsletter">
-                        <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                        <form>
-                            <input class="input" type="email" placeholder="Enter Your Email">
-                            <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                        </form>
-                        <ul class="newsletter-follow">
-                            <li>
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-pinterest"></i></a>
-                            </li>
-                        </ul>
-                    </div>
+                    
                 </div>
             </div>
             <!-- /row -->
@@ -176,9 +151,8 @@
                             <h3 class="footer-title">About Us</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
                             <ul class="footer-links">
-                                <li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
-                                <li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
-                                <li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+                                <li><a href="https://www.google.com/maps/place/Tr%C6%B0%E1%BB%9Dng+Cao+%C4%91%E1%BA%B3ng+K%E1%BB%B9+thu%E1%BA%ADt+Cao+Th%E1%BA%AFng/10.771595,106.6991629,17z/data=!3m1!4b1!4m5!3m4!1s0x31752f40a3b49e59:0xa1bd14e483a602db!8m2!3d10.771595!4d106.7013516?hl=vi-VN"><i class="fa fa-map-marker"></i>Cao Thang Technical College</a></li>
+                                <li><a href="https://www.facebook.com/toanle0120"><i class="fa fa-envelope-o"></i>Facebook Us</a></li>
                             </ul>
                         </div>
                     </div>
@@ -187,39 +161,18 @@
                         <div class="footer">
                             <h3 class="footer-title">Categories</h3>
                             <ul class="footer-links">
-                                <li><a href="#">Hot deals</a></li>
-                                <li><a href="#">Laptops</a></li>
-                                <li><a href="#">Smartphones</a></li>
-                                <li><a href="#">Cameras</a></li>
-                                <li><a href="#">Accessories</a></li>
+                                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                                <li><a asp-controller="Products" asp-action="PD" asp-route-page="1">Product</a></li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="clearfix visible-xs"></div>
-
-                    <div class="col-md-3 col-xs-6">
-                        <div class="footer">
-                            <h3 class="footer-title">Information</h3>
-                            <ul class="footer-links">
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Orders and Returns</a></li>
-                                <li><a href="#">Terms & Conditions</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
                     <div class="col-md-3 col-xs-6">
                         <div class="footer">
                             <h3 class="footer-title">Service</h3>
                             <ul class="footer-links">
                                 <li><a href="#">My Account</a></li>
-                                <li><a href="#">View Cart</a></li>
-                                <li><a href="#">Wishlist</a></li>
-                                <li><a href="#">Track My Order</a></li>
-                                <li><a href="#">Help</a></li>
                             </ul>
                         </div>
                     </div>

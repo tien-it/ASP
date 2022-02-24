@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using doanasp.Data;
 using doanasp.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace doanasp.Controllers
 {
@@ -22,17 +23,29 @@ namespace doanasp.Controllers
         // GET: Invoices
         public async Task<IActionResult> Index()
         {
-            var shopContext = _context.Invoides.Include(i => i.Account);
-            if (HttpContext.Request.Cookies.ContainsKey("Username"))
+            if (HttpContext.Session.Keys.Contains("id"))
             {
-                ViewBag.UserName = HttpContext.Request.Cookies["Username"].ToString();
+                ViewBag.id = HttpContext.Session.GetInt32("id");
             }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
+            var shopContext = _context.Invoides.Include(i => i.Account);
             return View(await shopContext.ToListAsync());
         }
 
         // GET: Invoices/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -123,6 +136,14 @@ namespace doanasp.Controllers
         // GET: Invoices/Create
         public IActionResult Create()
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Username");
 
             return View();
@@ -135,6 +156,14 @@ namespace doanasp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,Code,IssueDate,ShippingAddress,ShippingPhone,Total,AccountId,Status")] Invoice invoice)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(invoice);
@@ -148,6 +177,14 @@ namespace doanasp.Controllers
         // GET: Invoices/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -169,6 +206,14 @@ namespace doanasp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("id,Code,IssueDate,ShippingAddress,ShippingPhone,Total,AccountId,Status")] Invoice invoice)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (id != invoice.id)
             {
                 return NotFound();
@@ -197,10 +242,34 @@ namespace doanasp.Controllers
             ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Username", invoice.AccountId);
             return View(invoice);
         }
-
+        public async Task<IActionResult> Accept(int? id)
+        {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
+            var invoice = await _context.Invoides
+                .Include(i => i.Account)
+                .FirstOrDefaultAsync(m => m.id == id);
+            invoice.Status = true;
+            _context.SaveChanges();
+            return RedirectToAction("Index","Invoices");
+        }
         // GET: Invoices/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -222,6 +291,14 @@ namespace doanasp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             var invoice = await _context.Invoides.FindAsync(id);
             _context.Invoides.Remove(invoice);
             await _context.SaveChangesAsync();

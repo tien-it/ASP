@@ -1,12 +1,11 @@
 ﻿@model IEnumerable<doanasp.Models.Cart>
 @{
     Layout = "_LayoutMember"; ViewData["Title"] = "Home Page";
-    string username = "anonymous";
     int Id = 0;
+    string username = "anonymous";
     if (ViewBag.UserName != null)
     {
         username = ViewBag.UserName;
-        Id = ViewBag.id;
         @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>}
     }
     else
@@ -56,9 +55,6 @@
             {
             <tr>
                 <td>
-                    <input type="checkbox" id="@item.Product.Id" name="@item.Quantity" value="@item.Product.Price" />
-                </td>
-                <td>
                     <img src="~/img/@item.Product.Image" alt="Computer Man" style="width:72px;height:72px;">
                 </td>
 
@@ -71,8 +67,8 @@
                 <td>
                     <div class="buttons_added">
                         <a asp-action="Giam" asp-route-id="@item.Id" type="button"><input type="button" value="-"></a>
-                        <input value="@Html.DisplayFor(modelItem => item.Quantity)">
-                        <a asp-action="Tang" asp-route-id="@item.Id" type="button"><input type="button" value="+"></a>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                        <a asp-action="Tang" asp-route-id="@item.Id" type="button"><input type="button" value="+" ></a>
                     </div>
                 </td>
                 <td>
