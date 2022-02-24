@@ -95,6 +95,14 @@ namespace doanasp.Controllers
         }
         public async Task<IActionResult> PD()
         {
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
             var shopContext = _context.Products.Include(p => p.ProductType);
             return View(await shopContext.ToListAsync());
         }
