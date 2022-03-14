@@ -79,7 +79,24 @@ namespace doanasp.Controllers
             var shopContext = _context.Accounts.Include(p => p.Invoices);
             return View(await shopContext.ToListAsync());
         }
+        public async Task<IActionResult> iaccount()
+        {
+            
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                var id = HttpContext.Session.GetInt32("id");
+              
+                var account = await _context.Accounts.FirstOrDefaultAsync(m => m.id == id);
+                if (account == null)
+                {
+                    return NotFound();
+                }
 
+                return View(account);
+            }
+          
+                return NotFound();
+        }
         // GET: Accounts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -119,7 +136,50 @@ namespace doanasp.Controllers
             }
             return View();
         }
+        public async Task<IActionResult> EditProfile()
+        {
+            var idUser = HttpContext.Session.GetInt32("id");
+            if (idUser == null)
+            {
+                return NotFound();
+            }
 
+            var account = await _context.Accounts
+                .FirstOrDefaultAsync(m => m.id == idUser);
+            if (account == null)
+            {
+                return NotFound();
+            }
+
+            return View(account);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditProfile([Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,Avatar,Status")] Account account)
+        {
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(account);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!AccountExists(account.id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("Index", "Home");
+        }
         // POST: Accounts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -173,7 +233,7 @@ namespace doanasp.Controllers
                 if (account.ImageFile != null)
                 {
                     var filename = Guid.NewGuid() + Path.GetExtension(account.ImageFile.FileName);
-                    var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "user");
+                    var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "user_images");
                     var filePath = Path.Combine(uploadPath, filename);
 
                     using (FileStream fs = System.IO.File.Create(filePath))
