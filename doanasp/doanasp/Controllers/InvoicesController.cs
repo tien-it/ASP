@@ -19,7 +19,19 @@ namespace doanasp.Controllers
         {
             _context = context;
         }
-
+        public async Task<IActionResult> StatusFalse()
+        {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
+            var shopContext = _context.Invoides.Include(i => i.Account).Where(inv=>inv.Status==false);
+            return View(await shopContext.ToListAsync());
+        }
         // GET: Invoices
         public async Task<IActionResult> Index()
         {

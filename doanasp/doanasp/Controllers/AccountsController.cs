@@ -150,8 +150,7 @@ namespace doanasp.Controllers
                     return RedirectToAction("index", "Accounts");
                 }
             }
-                ViewBag.ErrorMessage = "Đăng nhập thất bại";
-                return View();
+            return View();
 
         }
         [HttpPost]

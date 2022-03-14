@@ -375,3 +375,10 @@ C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razo
 C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Products\SearchProducts.cshtml.g.cs
 C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Products\SellProduct.cshtml.g.cs
 C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Products\Search.cshtml.g.cs
+C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Products\QuantitySearch.cshtml.g.cs
+C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Products\TopSelling.cshtml.g.cs
+C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Invoices\FindDMY.cshtml.g.cs
+C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Invoices\Result.cshtml.g.cs
+C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Invoices\SearchAdvanced.cshtml.g.cs
+C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Invoices\StatusFalse.cshtml.g.cs
+C:\Users\toanl\Documents\GitHub\ASP\doanasp\doanasp\obj\Debug\netcoreapp3.1\Razor\Views\Products\Name.cshtml.g.cs

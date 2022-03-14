@@ -22,6 +22,19 @@ namespace doanasp.Controllers
             _context = context;
             _webHostEnvironment = webHostEnvironment;
         }
+        public async Task<IActionResult> Name(int quantity)
+        {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
+            var productList = _context.Products.Where(prd => prd.Stock <= quantity);
+            return View(await productList.ToListAsync());
+        }
         public IActionResult TopSelling()
         {
             var prd = (from p in _context.Products
@@ -73,7 +86,7 @@ namespace doanasp.Controllers
             {
                 ViewBag.UserName = HttpContext.Session.GetString("Username");
             }
-            var productList = _context.Products.Where(prd=>prd.Stock <= quantity&&prd.Name==ten&&prd.Author == hang);
+            var productList = _context.Products.Where(prd=>prd.Stock <= quantity && prd.Name==ten && prd.Author == hang);
             return View(await productList.ToListAsync());
         }
         // GET: Products
