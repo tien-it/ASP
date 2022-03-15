@@ -85,7 +85,8 @@ namespace doanasp.Controllers
             if (HttpContext.Session.Keys.Contains("id"))
             {
                 var id = HttpContext.Session.GetInt32("id");
-              
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+                ViewBag.id = HttpContext.Session.GetInt32("id");
                 var account = await _context.Accounts.FirstOrDefaultAsync(m => m.id == id);
                 if (account == null)
                 {
@@ -97,6 +98,7 @@ namespace doanasp.Controllers
           
                 return NotFound();
         }
+
         // GET: Accounts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -139,6 +141,8 @@ namespace doanasp.Controllers
         public async Task<IActionResult> EditProfile()
         {
             var idUser = HttpContext.Session.GetInt32("id");
+            ViewBag.UserName = HttpContext.Session.GetString("Username");
+            ViewBag.id = HttpContext.Session.GetInt32("id");
             if (idUser == null)
             {
                 return NotFound();
@@ -155,16 +159,31 @@ namespace doanasp.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditProfile([Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,Avatar,Status")] Account account)
+        public async Task<IActionResult> EditProfile([Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin, ImageFile,Avatar,Status")] Account account)
         {
-
+          
             if (ModelState.IsValid)
             {
                 try
                 {
                     _context.Update(account);
                     await _context.SaveChangesAsync();
+
+                    if (account.ImageFile != null)
+                    {
+                        var filename = Guid.NewGuid() + Path.GetExtension(account.ImageFile.FileName);
+                        var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "user_images");
+                        var filePath = Path.Combine(uploadPath, filename);
+
+                        using (FileStream fs = System.IO.File.Create(filePath))
+                        {
+                            account.ImageFile.CopyTo(fs);
+                            fs.Flush();
+                        }
+                        account.Avatar = filename;
+                    }
                 }
+
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!AccountExists(account.id))
@@ -176,7 +195,7 @@ namespace doanasp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("iaccount", "Accounts");
             }
             return RedirectToAction("Index", "Home");
         }

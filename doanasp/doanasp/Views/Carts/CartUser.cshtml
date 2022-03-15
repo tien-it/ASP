@@ -7,10 +7,12 @@
     {
         username = ViewBag.UserName;
         @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>}
+        @section name{<li><a asp-controller="Accounts" asp-action="iaccount">@username</a></li> }
     }
     else
     {
         @section Member{}
+        @section name{@username}
     }
 
     if (ViewBag.id != null)
@@ -22,7 +24,7 @@
 @section idWish{@Id}
 @section id{@Id}
 
-@section name{@username}
+
 
 <div class="column" style="width:50%">
     <table class="table">
@@ -53,31 +55,31 @@
         <tbody>
             @foreach (var item in Model)
             {
-            <tr>
-                <td>
-                    <img src="~/img/@item.Product.Image" alt="Computer Man" style="width:72px;height:72px;">
-                </td>
+                <tr>
+                    <td>
+                        <img src="~/img/@item.Product.Image" alt="Computer Man" style="width:72px;height:72px;">
+                    </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.SKU)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.Name)
-                </td>
-                <td>
-                    <div class="buttons_added">
-                        <a asp-action="Giam" asp-route-id="@item.Id" type="button"><input type="button" value="-"></a>
-                        @Html.DisplayFor(modelItem => item.Quantity)
-                        <a asp-action="Tang" asp-route-id="@item.Id" type="button"><input type="button" value="+" ></a>
-                    </div>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.Price)
-                </td>
-                <td>
-                    <a asp-action="DeleteUser" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.SKU)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Name)
+                    </td>
+                    <td>
+                        <div class="buttons_added">
+                            <a asp-action="Giam" asp-route-id="@item.Id" type="button"><input type="button" value="-"></a>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                            <a asp-action="Tang" asp-route-id="@item.Id" type="button"><input type="button" value="+"></a>
+                        </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Price)
+                    </td>
+                    <td>
+                        <a asp-action="DeleteUser" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>

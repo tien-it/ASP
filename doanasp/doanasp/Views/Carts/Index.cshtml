@@ -8,13 +8,15 @@
     {
         username = ViewBag.UserName;
         @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>}
+
     }
     else
     {
         @section Member{}
+
     }
 }
-@section name{@username}
+@section name{@username }
 <div class="col-sm-1"></div>
 <div class="col-sm-10">
     <h1>Carts Table</h1>
@@ -59,4 +61,4 @@
             }
         </tbody>
     </table>
-    </div>
+</div>

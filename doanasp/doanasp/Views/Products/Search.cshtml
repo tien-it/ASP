@@ -6,12 +6,13 @@
     if (ViewBag.UserName != null)
     {
         username = ViewBag.UserName;
-        Id = ViewBag.id;
-        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>};
+        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>}
+
     }
     else
     {
-        @section Member{};
+        @section Member{}
+        
     }
 
     if (ViewBag.id != null)
@@ -20,6 +21,7 @@
 
     }
 }
+
 @section idWish{@Id};
 @section id{@Id};
 
@@ -67,15 +69,15 @@
                             <div class="col-md-4 col-xs-6">
                                 <div class="product">
                                     <div class="product-img">
-                                        <img src="~/img/@item.Image" alt="" width="100" height="200">
+                                        <img src="~/img/product/@item.Image" alt="" width="100" height="200">
                                         <div class="product-label">
                                             <span class="sale">-30%</span>
                                             <span class="new">NEW</span>
                                         </div>
                                     </div>
                                     <div class="product-body">
-                                        <p class="product-category">ID : @item.ProductTypeId</p>
-                                        <h3 class="product-name"><a asp-controller="Products" asp-action="Detail" asp-route-id="@item.Id">Name : @item.Name</a></h3>
+                                        <p class="product-category">@item.SKU</p>
+                                        <h3 class="product-name"><a asp-controller="Products" asp-action="Detail" asp-route-id="@item.Id"> @item.Name</a></h3>
                                         <h4 class="product-price">@item.Price VND</h4>
                                     </div>
                                     <div class="add-to-cart">

@@ -8,13 +8,16 @@
     {
         username = ViewBag.UserName;
         @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>}
+
     }
     else
     {
         @section Member{}
+
     }
 }
 @section name{@username}
+
 <div class="container">
     <h1>Details</h1>
 

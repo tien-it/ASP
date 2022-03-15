@@ -3,17 +3,18 @@
     Layout = "_LayoutMember"; ViewData["Title"] = "Home Page";
     string username = "anonymous";
     int Id = 0;
-    int top = (ViewBag.page-1)*15+1;
+    int top = (ViewBag.page - 1) * 15 + 1;
     int bot = top + 14;
     if (ViewBag.UserName != null)
     {
         username = ViewBag.UserName;
-        Id = ViewBag.id;
-        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>};
+        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>}
+        @section name{   <li><a asp-controller="Accounts" asp-action="iaccount">@username</a></li>  }
     }
     else
     {
-        @section Member{};
+        @section Member{}
+        @section name{@username}
     }
 
     if (ViewBag.id != null)
@@ -25,7 +26,6 @@
 @section idWish{@Id};
 @section id{@Id};
 
-@section name{@username};
 
 <body>
     <!-- HEADER -->
@@ -63,13 +63,13 @@
                     <!-- store top filter -->
                     <!-- store products -->
                     <div class="row">
-                        <!-- product -->    
+                        <!-- product -->
                         @foreach (var item in Model)
                         {
                             <div class="col-md-4 col-xs-6">
                                 <div class="product">
                                     <div class="product-img">
-                                        <img src="~/img/@item.Image" alt="" width="100" height="200">
+                                        <img src="~/img/product/@item.Image" alt="" width="100" height="200">
                                         <div class="product-label">
                                             <span class="sale">-30%</span>
                                             <span class="new">NEW</span>
@@ -102,7 +102,7 @@
                         {
                             <ul class="store-pagination">
                                 <li><a asp-controller="Products" asp-action="PD" asp-route-page="1">1</a></li>
-                                <li class="active" >2</li>
+                                <li class="active">2</li>
                             </ul>
                         }
                     </div>

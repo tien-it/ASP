@@ -8,11 +8,11 @@
         username = ViewBag.UserName;
         Id = ViewBag.id;
         @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>};
-        @section name{<li><a asp-controller="Accounts" asp-action="iaccount"><i class="fa fa-user-o"></i>@username</a></li> }
+        @section name{<li><a asp-controller="Accounts" asp-action="iaccount">@username</a></li> }
     }
     else
     {
-        @section name{<li><a asp-controller="Accounts" asp-action="login"><i class="fa fa-user-o"></i></a></li> }
+        @section name{@username}
         @section Member{};
     }
 
@@ -72,7 +72,7 @@
         @Html.DisplayNameFor(model => model.Avatar)
     </dt>
     <dd class="col-sm-10">
-        <img style=" max-width:200px ; max-height:200px" src="~/img/user_images/@Html.DisplayFor(model =>model.Avatar)" />
+        <img style=" max-width:200px ; max-height:200px; border-radius :10% ;" src="~/img/user_images/@Html.DisplayFor(model =>model.Avatar)" />
     </dd>
     <div>
         <a asp-action="EditProfile" style="font-size:30; color:red ;">Edit</a>

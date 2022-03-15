@@ -6,12 +6,13 @@
     if (ViewBag.UserName != null)
     {
         username = ViewBag.UserName;
-        Id = ViewBag.id;
-        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>};
+        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>}
+        @section name{   <li><a asp-controller="Accounts" asp-action="iaccount">@username</a></li>  }
     }
     else
     {
-        @section Member{};
+        @section Member{}
+        @section name{@username}
     }
 
     if (ViewBag.id != null)
@@ -23,7 +24,6 @@
 @section idWish{@Id};
 @section id{@Id};
 
-@section name{@username};
 
 <body>
     <!-- HEADER -->
@@ -74,8 +74,8 @@
                                         </div>
                                     </div>
                                     <div class="product-body">
-                                        <p class="product-category">ID : @item.ProductTypeId</p>
-                                        <h3 class="product-name"><a asp-controller="Products" asp-action="Detail" asp-route-id="@item.Id">Name : @item.Name</a></h3>
+                                        <p class="product-category"> @item.SKU</p>
+                                        <h3 class="product-name"><a asp-controller="Products" asp-action="Detail" asp-route-id="@item.Id"> @item.Name</a></h3>
                                         <h4 class="product-price">@item.Price VND</h4>
                                     </div>
                                     <div class="add-to-cart">

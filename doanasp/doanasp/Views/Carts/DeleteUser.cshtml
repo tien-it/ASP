@@ -14,16 +14,18 @@
         username = ViewBag.UserName;
         Id = ViewBag.id;
         @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>};
+        @section name{<li><a asp-controller="Accounts" asp-action="iaccount">@username</a></li> }
     }
     else
     {
         @section Member{};
+        @section name{@username}
     }
 
 }
 @section idWish{@Id}
 @section id{@Id}
-@section name{@username}
+
 
 <h1>Delete</h1>
 

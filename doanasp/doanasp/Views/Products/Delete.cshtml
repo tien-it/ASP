@@ -8,13 +8,15 @@
     {
         username = ViewBag.UserName;
         @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>}
+
     }
     else
     {
         @section Member{}
+
     }
-}
-@section name{@username}
+} 
+ @section name{@username}
 <div class="container">
     <h1>Delete</h1>
 
@@ -82,7 +84,7 @@
         <form asp-action="Delete">
             <input type="hidden" asp-for="Id" />
             <input type="submit" value="Delete" class="btn btn-danger" /> |
-            <a asp-action="Index"class="btn btn-primary">Back to List</a>
+            <a asp-action="Index" class="btn btn-primary">Back to List</a>
         </form>
     </div>
 </div>
