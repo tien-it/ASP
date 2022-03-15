@@ -1,14 +1,25 @@
 ﻿@model IEnumerable<doanasp.Models.Invoice>
 
 @{
-    ViewData["Title"] = "Index";
-}
+    ViewData["Title"] = "Index"; Layout = "_LayoutAdminIndex";
+    string username = "anonymous";
+    if (ViewBag.UserName != null)
+    {
+        username = ViewBag.UserName;
+        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>}
+    }
+    else
+    {
+        @section Member{}
 
-<h1>Result</h1>
-<p>
+    }
+}
+@section name{@username}
+<h1 style="width:50%; margin-left:10% ;" >Result</h1>
+<p style="width:50%; margin-left:10% ;" >
     <a asp-action="Index">Back to List</a>
 </p>
-<table class="table">
+<table class="table" style="width:50%; margin-left:10% ;">
     <thead>
         <tr>
             <th>
