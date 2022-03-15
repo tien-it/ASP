@@ -40,10 +40,10 @@
             <div class="col-md-6 col-xs-6">
                 <div class="shop">
                     <div class="shop-img">
-                        <img src="~/img/product01.jpg" alt="">
+                        <img style=" height: 500px  ;" src="~/img/product01.jpg" alt="">
                     </div>
                     <div class="shop-body">
-                        <h3>Page 1<br>Collection</h3>
+                        <h3>Nổi Bật</h3>
                         <a asp-controller="Products" asp-action="PD" asp-route-page="1" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -53,10 +53,10 @@
             <div class="col-md-6 col-xs-6">
                 <div class="shop">
                     <div class="shop-img">
-                        <img src="~/img/product01.jpg" alt="">
+                        <img style=" height: 500px;" src="~/img/product03.jpg" alt="">
                     </div>
                     <div class="shop-body">
-                        <h3>Page 2<br>Collection</h3>
+                        <h3>Siêu Khuyến mãi</h3>
                         <a asp-controller="Products" asp-action="PD" asp-route-page="2" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -105,11 +105,11 @@
                                 <div class="product">
                                     <a asp-controller="Products" asp-action="Detail" asp-route-id="@item.Id">
                                         <div class="product-img">
-                                            <img src="~/img/@item.Image" alt="" width="100" height="200">
+                                            <img src="~/img/product/@item.Image" alt="" width="100" height="200">
                                         </div>
                                         <div class="product-body">
-                                            <p class="product-category">PT Name : @item.ProductType.TypeName</p>
-                                            <h3 class="product-name"><a asp-controller="Products" asp-action="Detail" asp-route-id="@item.Id">Name : @item.Name</a></h3>
+                                            <p class="product-category">@item.ProductType.TypeName</p>
+                                            <h3 class="product-name"><a asp-controller="Products" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a></h3>
                                             <h4 class="product-price">@item.Price VND</h4>
 
                                         </div>

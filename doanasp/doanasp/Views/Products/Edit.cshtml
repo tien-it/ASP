@@ -61,8 +61,13 @@
                     <span asp-validation-for="ProductTypeId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Image" class="control-label"></label>
-                    <input asp-for="Image" class="form-control" />
+                    <label  class="control-label">Current Image</label>
+                    <img style=" max-width: 100px; max-height: 100px; border-radius: 10%;" src="~/img/product/@Html.DisplayFor(model =>model.Image)" />
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="ImageFile" class="control-label"></label>
+                    <input asp-for="ImageFile" class="form-control" />
                     <span asp-validation-for="Image" class="text-danger"></span>
                 </div>
                 <div class="form-group form-check">

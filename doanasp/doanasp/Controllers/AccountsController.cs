@@ -213,9 +213,10 @@ namespace doanasp.Controllers
             return View();
 
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,Avatar,Status")] Account account)
+        public async Task<IActionResult> Create([Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,ImageFile,Avatar,Status")] Account account)
         {
             if (HttpContext.Session.Keys.Contains("id"))
             {
@@ -299,7 +300,7 @@ namespace doanasp.Controllers
             if (account.ImageFile != null)
             {
                 var filename = Guid.NewGuid() + Path.GetExtension(account.ImageFile.FileName);
-                var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "user");
+                var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "user_images");
                 var filePath = Path.Combine(uploadPath, filename);
 
                 using (FileStream fs = System.IO.File.Create(filePath))
