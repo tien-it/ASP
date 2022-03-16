@@ -16,5 +16,6 @@ namespace doanasp.Data
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Invoice> Invoides { get; set; } 
         public DbSet<InvoiceDetail> InvoiceDetails { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }

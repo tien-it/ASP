@@ -44,5 +44,6 @@ namespace doanasp.Models
         public bool Status { get; set; }
         public List<Invoice> Invoices { get; set; }
         public List<Cart> Carts { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }

@@ -1,0 +1,80 @@
+﻿@model IEnumerable<doanasp.Models.Comment>
+
+@{
+    ViewData["Title"] = "Create"; Layout = "_LayoutAdminIndex";
+    string username = "anonymous";
+    if (ViewBag.UserName != null)
+    {
+        username = ViewBag.UserName;
+        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>}
+
+    }
+    else
+    {
+        @section Member{}
+
+    }
+}
+@section name{@username}
+
+<table class="table" style="width:50% ;  margin-left:10%;">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Account)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IssueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Account.Fullname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IssueDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                <img style=" max-width: 100px; max-height: 100px; border-radius: 5%;" src="~/img/comment_images/@Html.DisplayFor(modelItem => item.Image)" /><br />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @if (item.status == false)
+                {
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Accept</a>}
+                else
+                { 
+                    <a asp-action="Edit1" asp-route-id="@item.Id" class="btn btn-primary">Unaccept</a>
+                 }|
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-primary">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

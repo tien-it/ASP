@@ -1,9 +1,8 @@
-﻿@model doanasp.Models.Product
+﻿@model IEnumerable<doanasp.Models.Comment>
 @{
     Layout = "_LayoutMember"; ViewData["Title"] = "Home Page";
     string username = "anonymous";
     int Id = 0;
-    int quantity = 1;
     if (ViewBag.UserName != null)
     {
         username = ViewBag.UserName;
@@ -21,6 +20,8 @@
         Id = ViewBag.id;
 
     }
+    Product product = ViewBag.product as Product;
+    Account account = ViewBag.account as Account;
 }
 @section idWish{@Id}
 @section id{@Id}
@@ -40,7 +41,7 @@
                 <div class="col-md-5 col-md-push-2">
                     <div id="product-main-img">
                         <div class="product-preview">
-                            <img src="~/img/product/@Model.Image" alt="">
+                            <img src="~/img/product/@product.Image" alt="">
                         </div>
                     </div>
                 </div>
@@ -49,7 +50,7 @@
                 <div class="col-md-2  col-md-pull-5">
                     <div id="product-imgs">
                         <div class="product-preview">
-                            <img src="~/img/product/@Model.Image" alt="">
+                            <img src="~/img/product/@product.Image" alt="">
                         </div>
                     </div>
                 </div>
@@ -57,19 +58,19 @@
                 <!-- Product details -->
                 <div class="col-md-5">
                     <div class="product-details">
-                        <h2 class="product-name">@Model.Name</h2>
+                        <h2 class="product-name">@product.Name</h2>
                         <div>
-                            <h3 class="product-price">@Model.Price VND</h3>
-                            <span class="product-available">@Model.Stock  :  In Stock</span>
+                            <h3 class="product-price">@product.Price VND</h3>
+                            <span class="product-available">@product.Stock  :  In Stock</span>
                         </div>
-                        <p>@Model.Description</p>
+                        <p>@product.ProductType.TypeName</p>
                         <div class="add-to-cart">
-                            <form asp-controller="Carts" asp-action="Added" asp-route-id="@Model.Id">
+                            <form asp-controller="Carts" asp-action="Added" asp-route-id="@product.Id">
                                 <div class="qty-label">
                                     Qty
-                                    <input type="number" asp-controller="" value="1" id="quantity" name="quantity" min="1" max="@Model.Stock">
+                                    <input type="number" asp-controller="" value="1" id="quantity" name="quantity" min="1" max="@product.Stock">
                                 </div>
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>add to cart</button>
+                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a asp-controller="Carts" asp-action="Add" asp-route-id="@product.Id">add to cart </a></button>
                             </form>
                         </div>
                     </div>
@@ -80,7 +81,7 @@
                     <div id="product-tab">
                         <!-- product tab nav -->
                         <ul class="tab-nav">
-                            <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
+                            <li class="active"><a data-toggle="tab">Description</a></li>
                         </ul>
                         <!-- /product tab nav -->
                         <!-- product tab content -->
@@ -89,7 +90,7 @@
                             <div id="tab1" class="tab-pane fade in active">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <p>@Model.Description</p>
+                                        <p>@product.Description</p>
                                     </div>
                                 </div>
                             </div>
@@ -101,6 +102,29 @@
                         </div>
                         <!-- /product tab content  -->
                     </div>
+                </div>
+                <div class="col-md-12">
+                    <div id="product-tab">
+                        <!-- product tab nav -->
+                        <ul class="tab-nav">
+                            <li class="active"><a data-toggle="tab">Comment</a></li>
+                        </ul>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Account.Fullname)   @Html.DisplayFor(modelItem => item.IssueDate) <br />
+                                    <img style=" max-width: 50px; max-height: 50px; border-radius: 50%;" src="~/img/user_images/@Html.DisplayFor(modelItem => item.Account.Avatar)" /><br />
+                                </td>
+                                <td>
+                                    <img style=" max-width: 500px; max-height: 500px; border-radius: 5%;" src="~/img/comment_images/@Html.DisplayFor(modelItem => item.Image)" /><br />
+                                    @Html.DisplayFor(modelItem => item.Content)
+                                </td>
+                            </tr>
+                        }
+                        <!-- /product tab content  -->
+                    </div>
+                    <button class="add-to-cart-btn"><i class="fa fa-mail-bulk"></i><a asp-controller="Comments" asp-action="Create" asp-route-id="@product.Id">Comment</a></button>
                 </div>
                 <!-- /product tab -->
             </div>

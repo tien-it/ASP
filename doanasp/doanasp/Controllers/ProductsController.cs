@@ -105,6 +105,7 @@ namespace doanasp.Controllers
             return View(await shopContext.ToListAsync());
             //
         }
+        //chi tiết sản phẩm  
         public async Task<IActionResult> Detail(int? id)
         {
 
@@ -120,17 +121,49 @@ namespace doanasp.Controllers
             {
                 return NotFound();
             }
+
             var productDetail = await _context.Products
                 .Include(p => p.ProductType)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            var product = from prd in _context.Products
-                          select prd;
+
+            Account accuntx = await _context.Accounts.FirstOrDefaultAsync(i => i.id == HttpContext.Session.GetInt32("id"));
+            ViewBag.account = accuntx;
+            var shopContext =  _context.Comments.Include(c => c.Account).Where( i =>i.status == true).ToListAsync();
+            ViewBag.product = productDetail;
             if (productDetail == null)
             {
                 return NotFound();
             }
-            return View(productDetail);
+
+            return View(await shopContext);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Detail(string Content , IFormFile ImageFile , string Image  )
+        {
+
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }else
+            {
+                return NotFound();
+            }
+            return View();
+
+
+        }
+
+
+
+
+
+        //hết chi tiết sản phẩm  
         public async Task<IActionResult> PD(int page)
         {
             if (HttpContext.Session.Keys.Contains("Username"))

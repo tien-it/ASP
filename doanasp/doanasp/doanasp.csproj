@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <Folder Include="wwwroot\img\comment_images\" />
     <Folder Include="wwwroot\img\user_images\" />
     <Folder Include="wwwroot\img\product\" />
   </ItemGroup>
