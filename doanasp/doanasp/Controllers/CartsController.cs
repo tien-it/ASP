@@ -19,7 +19,32 @@ namespace doanasp.Controllers
         {
             _context = context;
         }
-        public IActionResult Pay()
+
+        //THANH TOÁN 
+        public async Task<IActionResult> Pay()
+        {
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+                
+            }
+  
+            Account accuntx = await _context.Accounts.FirstOrDefaultAsync(i=>i.id == HttpContext.Session.GetInt32("id"));
+
+            ViewBag.account = accuntx; 
+
+            ViewBag.total = _context.Carts.Include(c => c.Account).Include(c => c.Product)
+                          .Where(c => c.Account.Username == HttpContext.Session.GetString("Username"))
+                          .Sum(c => c.Quantity * c.Product.Price);
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Pay(string ShippingAddress, String ShippingPhone)
         {
             Invoice invoice = new Invoice();
             string username = HttpContext.Session.GetString("Username");
@@ -33,18 +58,20 @@ namespace doanasp.Controllers
             }
                 Account acc = _context.Accounts.FirstOrDefault(c=>c.Username==username);
             //Hoa don
+
             DateTime now = DateTime.Now;
             invoice.Code = now.ToString("yyMMddhhmmss");
             invoice.AccountId = _context.Accounts.FirstOrDefault(a => a.Username == username).id;
             invoice.IssueDate = now;
             invoice.Status = false;
-            invoice.ShippingPhone = acc.Phone;
-            invoice.ShippingAddress = acc.Address;
+            invoice.ShippingPhone = ShippingPhone;
+            invoice.ShippingAddress = ShippingAddress;
             invoice.Total = _context.Carts.Include(c => c.Account).Include(c => c.Product)
                           .Where(c => c.Account.Username == username)
                           .Sum(c => c.Quantity * c.Product.Price);
             _context.Add(invoice);
             _context.SaveChanges();
+
             //Chi Tiet Hoa Don
             List<Cart> carts = _context.Carts.Include(c => c.Product).Include(c => c.Account)
                              .Where(c => c.Account.Username == username).ToList();
