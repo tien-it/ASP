@@ -70,7 +70,7 @@
                                     Qty
                                     <input type="number" asp-controller="" value="1" id="quantity" name="quantity" min="1" max="@product.Stock">
                                 </div>
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a asp-controller="Carts" asp-action="Add" asp-route-id="@product.Id">add to cart </a></button>
+                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a>add to cart </a></button>
                             </form>
                         </div>
                     </div>
@@ -121,6 +121,7 @@
                                     @Html.DisplayFor(modelItem => item.Content)
                                 </td>
                             </tr>
+                            <hr />
                         }
                         <!-- /product tab content  -->
                     </div>
